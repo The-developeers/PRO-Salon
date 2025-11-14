@@ -1,20 +1,69 @@
-import React from "react"
-import "../style/Sidebar.css"
+import { NavLink } from "react-router-dom";
+import {
+  TbLayoutDashboard,
+  TbUser,
+  TbUsers,
+  TbScissors,
+  TbCalendarEvent,
+  TbCash,
+  TbHelpCircle,
+  TbLogout
+} from "react-icons/tb";
+import "../style/Sidebar.css";
 
-export const Sidebar: React.FC = () => {
+const Sidebar = () => {
   return (
-    <aside>
-      <nav>
-        <button>🏠 Início</button>
-        <button>📅 Agendamentos</button>
-        <button>💇 Salão</button>
-        <button>💰 Financeiro</button>
-        <button>📊 Relatórios</button>
-        <button>👤 Perfil</button>
+    <div className="sidebar-container">
+
+      {/* MENU PRINCIPAL */}
+      <nav className="sidebar-menu">
+        <NavLink to="/dashboard" className="item">
+          <TbLayoutDashboard />
+          <span>Dashboard</span>
+        </NavLink>
+
+        <NavLink to="/clientes" className="item" id="p-item">
+          <TbUser />
+          <span>Clientes</span>
+        </NavLink>
+
+        <NavLink to="/funcionarias" className="item">
+          <TbUsers />
+          <span>Funcionárias</span>
+        </NavLink>
+
+        <NavLink to="/servicos" className="item">
+          <TbScissors />
+          <span>Serviços</span>
+        </NavLink>
+
+        <NavLink to="/agendamentos" className="item">
+          <TbCalendarEvent />
+          <span>Agendamentos</span>
+        </NavLink>
+
+        <NavLink to="/financeiro" className="item">
+          <TbCash />
+          <span>Financeiro</span>
+        </NavLink>
       </nav>
-      <div className="logout">
-        <button>🚪 Sair</button>
+
+      {/* MENU INFERIOR */}
+      <div className="sidebar-bottom">
+
+        <NavLink to="/ajuda" className="item">
+          <TbHelpCircle />
+          <span>Ajuda</span>
+        </NavLink>
+
+        <button className="item logout-btn">
+          <TbLogout />
+          <span>Sair</span>
+        </button>
+
       </div>
-    </aside>
-  )
-}
+    </div>
+  );
+};
+
+export default Sidebar;

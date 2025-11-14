@@ -1,19 +1,24 @@
-import React from "react"
-import { TheHeader } from "./components/TheHeader"
-import { Sidebar } from "./components/Sidebar"
-import Dashboard from "./components/Dashboard"
-import "./index.css"
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Sidebar from "./components/Sidebar";
+import Home from "./page/Home";
 
-const App: React.FC = () => {
+function App() {
   return (
-    <div className="app-container">
-      <TheHeader />
-      <div className="main-content">
-        <Sidebar />
-        <Dashboard />
-      </div>
-    </div>
-  )
+    <BrowserRouter>
+      <Sidebar />
+
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/dashboard" element={<Home />} />
+        <Route path="/clientes" element={<div>Clientes</div>} />
+        <Route path="/funcionarias" element={<div>Funcionárias</div>} />
+        <Route path="/servicos" element={<div>Serviços</div>} />
+        <Route path="/agendamentos" element={<div>Agendamentos</div>} />
+        <Route path="/financeiro" element={<div>Financeiro</div>} />
+        <Route path="/ajuda" element={<div>Ajuda</div>} />
+      </Routes>
+    </BrowserRouter>
+  );
 }
 
-export default App
+export default App;

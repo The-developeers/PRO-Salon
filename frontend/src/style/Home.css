@@ -1,0 +1,29 @@
+/* HOME - estruturas utilizadas pelos componentes atuais */
+.home-container {
+  display: flex;
+  min-height: 100vh;
+  width: 100%;
+  background: #f5f7fb;
+  font-family: "Poppins", sans-serif;
+}
+
+/* Se a sidebar estiver com position:fixed; use margin-left para empurrar o conteúdo */
+.home-main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+/* pequena responsividade caso remova a sidebar fixa */
+@media (max-width: 900px) {
+  .home-main {
+    margin-left: 0;
+    padding: 16px;
+  }
+  .header {
+    margin-left: 0;
+  }
+}
