@@ -9,12 +9,14 @@
 
 /* Se a sidebar estiver com position:fixed; use margin-left para empurrar o conteúdo */
 .home-main {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
+  width: 100%;
+  margin-top: 70px;
+  margin-left: 260px;
   padding: 20px;
+  min-height: calc(100vh - 70px);
+  background: var(--background);
   box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
 }
 
 /* pequena responsividade caso remova a sidebar fixa */

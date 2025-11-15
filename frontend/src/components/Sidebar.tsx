@@ -17,12 +17,12 @@ const Sidebar = () => {
 
       {/* MENU PRINCIPAL */}
       <nav className="sidebar-menu">
-        <NavLink to="/dashboard" className="item">
+        <NavLink to="/dashboard" className="item" id="p-item">
           <TbLayoutDashboard />
-          <span>Dashboard</span>
+          <span>Home</span>
         </NavLink>
 
-        <NavLink to="/clientes" className="item" id="p-item">
+        <NavLink to="/clientes" className="item">
           <TbUser />
           <span>Clientes</span>
         </NavLink>

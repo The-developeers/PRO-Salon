@@ -106,7 +106,7 @@
 }
 
 .dropdown-menu .logout {
-  color: #d9534f;
+  color: var(--botao-vermelho);
 }
 
 /* ANIMAÇÃO DO DROPDOWN */
