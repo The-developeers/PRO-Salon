@@ -1,0 +1,41 @@
+.login-container {
+font-size: 16px;
+opacity: 0.6;
+}
+
+
+/* Botão */
+.btn-login {
+width: 100%;
+background: #b86a4d;
+color: white;
+border: none;
+padding: 14px;
+border-radius: 12px;
+font-size: 16px;
+font-weight: 600;
+cursor: pointer;
+margin-top: 10px;
+transition: 0.2s;
+}
+
+
+.btn-login:hover {
+opacity: 0.9;
+}
+
+
+/* Texto de cadastro */
+.register-text {
+margin-top: 16px;
+text-align: center;
+font-size: 13px;
+color: #444;
+}
+
+
+.register-text a {
+font-weight: bold;
+text-decoration: underline;
+cursor: pointer;
+}
