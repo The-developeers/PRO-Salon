@@ -1,4 +1,3 @@
-import React from "react"
 import '../style/Login.css'
 import Logo from '../../public/img/Logo.png'
 import IconEmail from '../../public/img/IconEmail.png'

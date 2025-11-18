@@ -1,0 +1,105 @@
+/* ===== ESTILOS EQUIVALENTES AO BODY ===== */
+.usuario-page {
+  display: flex;
+  width: 100%;
+  margin-top: 70px;
+  margin-left: 260px;
+  padding: 20px;
+  min-height: calc(100vh - 70px);
+  background: var(--background);
+  box-sizing: border-box;
+}
+
+/* ===== ÁREA DE CONTEÚDO (AO LADO DO SIDEBAR) ===== */
+.usuario-conteudo {
+  width: 100%;
+}
+
+/* ===== CONTAINER DO USUÁRIO ===== */
+.usuario-container {
+  background: white;
+  border-radius: 16px;
+  padding: 24px;
+  width: 100%;
+  max-width: 600px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.05);
+}
+
+/* ===== TÍTULO ===== */
+.usuario-title {
+  font-size: 1.4rem;
+  font-weight: 600;
+  margin-bottom: 20px;
+  color: var(--text);
+  display: flex;
+  align-items: center;
+}
+
+/* ===== FORM ===== */
+.usuario-form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.usuario-label {
+  font-size: 0.9rem;
+  font-weight: 500;
+  margin-bottom: 6px;
+}
+
+.usuario-input {
+  padding: 10px 12px;
+  border: 1px solid var(--rosa-primario);
+  border-radius: 8px;
+  font-size: 1rem;
+  color: var(--text);
+  background: var(--rosa-claro);
+  transition: 0.2s;
+}
+
+.usuario-input:disabled {
+  opacity: 0.6;
+  background: #f2f2f2;
+  border-color: #ccc;
+}
+
+.usuario-input:focus {
+  outline: none;
+  border-color: var(--rosa-hover);
+}
+
+/* ===== BOTÕES ===== */
+.usuario-buttons {
+  display: flex;
+  gap: 12px;
+  margin-top: 10px;
+}
+
+.btn-editar,
+.btn-salvar {
+  padding: 10px 16px;
+  border: none;
+  border-radius: 10px;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.btn-editar {
+  background: var(--rosa-primario);
+  color: white;
+}
+
+.btn-editar:hover {
+  background: var(--rosa-hover);
+}
+
+.btn-salvar {
+  background: #4caf50;
+  color: white;
+}
+
+.btn-salvar:hover {
+  background: #3f8c41;
+}
