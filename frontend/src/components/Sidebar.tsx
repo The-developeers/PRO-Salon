@@ -1,4 +1,4 @@
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import {
   TbLayoutDashboard,
   TbUser,
@@ -10,8 +10,18 @@ import {
   TbLogout
 } from "react-icons/tb";
 import "../style/Sidebar.css";
+import { useAuth } from "../hooks/useAuth";
 
 const Sidebar = () => {
+  const { logout } = useAuth()
+  const navigate = useNavigate()
+
+  // função de logout no sidebar
+  const handleLogout = () => {
+    logout()
+    navigate('/login')
+  }
+
   return (
     <div className="sidebar-container">
 
@@ -56,7 +66,7 @@ const Sidebar = () => {
           <span>Ajuda</span>
         </NavLink>
 
-        <button className="item logout-btn">
+        <button className="item logout-btn" onClick={handleLogout}>
           <TbLogout />
           <span>Sair</span>
         </button>
