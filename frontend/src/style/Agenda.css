@@ -40,9 +40,10 @@
   display: flex;
   gap: 16px; /* Espaço entre os itens do filtro */
   margin-bottom: 24px;
-  background-color: #fff;
+  background-color: #FFE7DB;
   padding: 16px;
-  border-radius: 8px;
+  border-radius: 10px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
 }
 
 .agenda-filters input,
@@ -54,70 +55,123 @@
 }
 
 /* --- Lista e Cards (AgendaList.tsx e AppointmentCard.tsx) --- */
+/* src/style/Agenda.css */
+
+/* ... (seus outros estilos, como .home-main, .agenda-header, etc. ficam aqui) ... */
+
 .agenda-list {
   display: flex;
   flex-direction: column;
   gap: 16px; /* Espaço entre cada card */
 }
 
+/* 1. O CARD PRINCIPAL (O Container) */
 .appointment-card {
+  display: flex; /* <-- A MÁGICA! Faz os filhos ficarem lado a lado */
+  justify-content: space-between; /* Joga um grupo para a esquerda e outro para a direita */
+  align-items: center; /* Alinha tudo no centro verticalmente */
+
   background-color: #ffffff;
   border-radius: 8px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
-  padding: 16px;
-  border-left: 5px solid #ccc; /* Borda padrão */
+  padding: 16px 24px; /* Dando um pouco mais de espaço lateral */
+  
+  /* Borda colorida (começa cinza, mas as classes de status vão mudar) */
+  border-left: 5px solid #ccc; 
 }
 
-/* ... (Vamos detalhar o card na próxima seção) ... */
-/* src/style/Agenda.css (continuação) */
+/* 2. GRUPO DA ESQUERDA (Info do Cliente) */
+.card-info {
+  display: flex;
+  align-items: center;
+  gap: 16px; /* Espaço entre avatar, textos e status */
+}
 
-/* Classe para o texto vencido */
+/* O avatar redondo */
+.card-avatar {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+/* Div para empilhar Nome e Serviço */
+.card-info div {
+  display: flex;
+  flex-direction: column;
+}
+
+.card-info strong {
+  font-size: 1.1rem;
+  color: #333;
+}
+
+.card-info p {
+  font-size: 0.9rem;
+  color: #777;
+  margin: 0;
+}
+
+/* 3. GRUPO DA DIREITA (Detalhes do Agendamento) */
+.card-details {
+  display: flex;
+  align-items: center;
+  gap: 24px; /* Espaço entre Data/Hora, Preço e Ações */
+}
+
+/* Div para empilhar Data e Hora */
+.card-datetime {
+  display: flex;
+  flex-direction: column;
+  text-align: right; /* Alinha a data/hora à direita */
+}
+
+/* Classe para o texto de perigo (Vencida) */
 .text-danger {
   color: #e53e3e; /* Vermelho */
+  font-weight: bold;
 }
 
-/* --- Cores dos Status --- */
+.card-price {
+  font-size: 1.1rem;
+  font-weight: bold;
+  color: #333;
+}
 
-/* Badge (a "pílula") */
+.card-actions {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  color: #555;
+  cursor: pointer;
+}
+
+.card-actions span:hover {
+  text-decoration: underline;
+}
+
+/* 4. AS CLASSES DE STATUS (Isso você já tinha, mas é importante) */
+/* Elas mudam a cor da borda e do 'badge' */
+
 .status-badge {
-  padding: 4px 8px;
+  padding: 4px 10px;
   border-radius: 12px;
   font-size: 12px;
   font-weight: bold;
 }
 
 /* Realizada (Verde) */
-.status-realizada {
-  background-color: #e6f7f0;
-  color: #31a06a;
-}
-.appointment-card.status-realizada {
-  border-left-color: #31a06a;
-}
+.status-realizada { background-color: #e6f7f0; color: #31a06a; }
+.appointment-card.status-realizada { border-left-color: #31a06a; }
 
 /* Agendada (Azul) */
-.status-agendada {
-  background-color: #e6f0fa;
-  color: #2b7def;
-}
-.appointment-card.status-agendada {
-  border-left-color: #2b7def;
-}
+.status-agendada { background-color: #e6f0fa; color: #2b7def; }
+.appointment-card.status-agendada { border-left-color: #2b7def; }
 
 /* Vencida (Vermelho) */
-.status-vencida {
-  background-color: #fbebee;
-  color: #e53e3e;
-}
-.appointment-card.status-vencida {
-  border-left-color: #e53e3e;
-}
+.status-vencida { background-color: #fbebee; color: #e53e3e; }
+.appointment-card.status-vencida { border-left-color: #e53e3e; }
 
-/* Aguardando (Amarelo/Laranja) */
-.status-aguardando {
-  background-color: #fff8e1;
-  color: #f59e0b;
-}
-.appointment-card.status-aguardando {
-  border-left-color: #f59e0b;
-}
+/* Aguardando (Amarelo) */
+.status-aguardando { background-color: #fff8e1; color: #f59e0b; }
+.appointment-card.status-aguardando { border-left-color: #f59e0b; }

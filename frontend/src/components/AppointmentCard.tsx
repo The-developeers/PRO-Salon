@@ -14,6 +14,7 @@ type AppointmentProps = {
     date: string;
     time: string;
     price: number;
+    avatarUrl: string; // <-- ADICIONE ESTA LINHA
   }
 }
 
@@ -47,13 +48,17 @@ export default function AppointmentCard({ appointmentData }: AppointmentProps) {
       */}
       
       <div className="card-info">
-        <img src="https://via.placeholder.com/50" alt="Avatar" />
+       <img 
+          src={appointmentData.avatarUrl} 
+          alt={appointmentData.clientName} 
+          className="card-avatar" // Adicionei uma classe para estilizar
+        />
+
         <div>
           <strong>{appointmentData.clientName}</strong>
           <p>{appointmentData.service} - {appointmentData.specialist}</p>
         </div>
         
-        {/* Usamos a mesma lógica para o "badge" de status */}
         <span className={`status-badge ${getStatusClass(appointmentData.status)}`}>
           {appointmentData.status}
         </span>

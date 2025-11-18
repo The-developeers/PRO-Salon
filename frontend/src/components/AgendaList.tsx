@@ -11,17 +11,19 @@ const mockAppointments = [
     status: 'Realizada',
     date: '08/11/2025',
     time: '08:28:00',
-    price: 100.00
+    price: 100.00,
+    avatarUrl: '/img/avatar-eduarda.png' // <-- ADICIONE ISSO
   },
   {
     id: 2,
-    clientName: 'Eduarda Pinheiro',
+    clientName: 'Paula Pinheiro',
     service: 'Lavagem',
     specialist: 'Paula Viera',
     status: 'Agendada',
     date: '08/11/2025',
     time: '08:28:00',
-    price: 100.00
+    price: 100.00,
+    avatarUrl: '/img/avatar-paula.png' // <-- ADICIONE ISSO
   },
   {
     id: 3,
@@ -31,7 +33,8 @@ const mockAppointments = [
     status: 'Aguardando',
     date: '08/11/2025',
     time: '08:28:00',
-    price: 100.00
+    price: 100.00,
+    avatarUrl: '/img/avatar-carla.png' // <-- ADICIONE ISSO
   },
     {
     id: 4,
@@ -41,7 +44,8 @@ const mockAppointments = [
     status: 'Vencida',
     date: '08/11/2025',
     time: '08:28:00',
-    price: 100.00
+    price: 100.00,
+    avatarUrl: '/img/avatar-ana.png' // <-- ADICIONE ISSO
   }
 ];
 
