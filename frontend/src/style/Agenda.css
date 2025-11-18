@@ -1,0 +1,123 @@
+/* src/style/Agenda.css */
+.home-main {
+  /* Propriedades do seu snippet */
+  padding: 20px;
+  background: var(--background); /* Certifique-se que var(--background) está definida! */
+  font-family: "Poppins", sans-serif;
+  box-sizing: border-box;
+
+  /* Propriedade do nosso layout Flex para fazer o conteúdo crescer */
+  flex-grow: 1;
+/* --- Cabeçalho da Agenda (AgendaHeader.tsx) --- */
+}
+.agenda-header {
+  display: flex;
+  justify-content: space-between; /* Joga o título para a esquerda e o botão para a direita */
+  align-items: center;
+  margin-bottom: 24px;
+}
+.agenda-header h1 {
+  margin: 0;
+}
+
+.agenda-header p {
+  margin: 0;
+  color: #666;
+}
+
+.btn-novo-agendamento {
+  background-color: #f59e0b; /* Cor do seu design */
+  color: white;
+  border: none;
+  padding: 12px 16px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+/* --- Filtros da Agenda (AgendaFilters.tsx) --- */
+.agenda-filters {
+  display: flex;
+  gap: 16px; /* Espaço entre os itens do filtro */
+  margin-bottom: 24px;
+  background-color: #fff;
+  padding: 16px;
+  border-radius: 8px;
+}
+
+.agenda-filters input,
+.agenda-filters select {
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  flex-grow: 1; /* Faz os inputs crescerem */
+}
+
+/* --- Lista e Cards (AgendaList.tsx e AppointmentCard.tsx) --- */
+.agenda-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px; /* Espaço entre cada card */
+}
+
+.appointment-card {
+  background-color: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  padding: 16px;
+  border-left: 5px solid #ccc; /* Borda padrão */
+}
+
+/* ... (Vamos detalhar o card na próxima seção) ... */
+/* src/style/Agenda.css (continuação) */
+
+/* Classe para o texto vencido */
+.text-danger {
+  color: #e53e3e; /* Vermelho */
+}
+
+/* --- Cores dos Status --- */
+
+/* Badge (a "pílula") */
+.status-badge {
+  padding: 4px 8px;
+  border-radius: 12px;
+  font-size: 12px;
+  font-weight: bold;
+}
+
+/* Realizada (Verde) */
+.status-realizada {
+  background-color: #e6f7f0;
+  color: #31a06a;
+}
+.appointment-card.status-realizada {
+  border-left-color: #31a06a;
+}
+
+/* Agendada (Azul) */
+.status-agendada {
+  background-color: #e6f0fa;
+  color: #2b7def;
+}
+.appointment-card.status-agendada {
+  border-left-color: #2b7def;
+}
+
+/* Vencida (Vermelho) */
+.status-vencida {
+  background-color: #fbebee;
+  color: #e53e3e;
+}
+.appointment-card.status-vencida {
+  border-left-color: #e53e3e;
+}
+
+/* Aguardando (Amarelo/Laranja) */
+.status-aguardando {
+  background-color: #fff8e1;
+  color: #f59e0b;
+}
+.appointment-card.status-aguardando {
+  border-left-color: #f59e0b;
+}

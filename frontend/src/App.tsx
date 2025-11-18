@@ -1,7 +1,6 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Home from "./page/Home";
-import Login from './page/Login';
-import Usuario from './page/Usuario';
+import Login from './page/Login'
 
 function App() {
   return (
@@ -14,7 +13,7 @@ function App() {
         <Route path="/clientes" element={<div>Clientes</div>} />
         <Route path="/funcionarias" element={<div>Funcionárias</div>} />
         <Route path="/servicos" element={<div>Serviços</div>} />
-        <Route path="/agendamentos" element={<div>Agendamentos</div>} />
+        <Route path="/agendamentos" element={<div><Agenda/></div>}/>
         <Route path="/financeiro" element={<div>Financeiro</div>} />
         <Route path="/ajuda" element={<div>Ajuda</div>} />
       </Routes>
