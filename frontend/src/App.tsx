@@ -4,6 +4,7 @@ import Login from './page/Login'
 import Usuario from "./page/Usuario";
 import Agenda from "./page/Agenda";
 import Clientes from './page/Clientes'
+import Financeiro from "./page/Financeiro";
 import { AuthProvider } from "./context/AuthContext";
 import { PrivateRoute } from "./routes/PrivateRoute";
 
@@ -46,7 +47,9 @@ function App() {
           <Route path="/funcionarias" element={<div>Funcionárias</div>} />
           <Route path="/servicos" element={<div>Serviços</div>} />
           <Route path="/agendamentos" element={<div><Agenda/></div>}/>
-          <Route path="/financeiro" element={<div>Financeiro</div>} />
+          <Route path="/financeiro" element={<PrivateRoute>
+            <Financeiro/>
+          </PrivateRoute>} />
           <Route path="/ajuda" element={<div>Ajuda</div>} />
         </Routes>
       </BrowserRouter>
