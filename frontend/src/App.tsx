@@ -5,8 +5,10 @@ import Usuario from "./page/Usuario";
 import Agenda from "./page/Agenda";
 import Clientes from './page/Clientes'
 import Financeiro from "./page/Financeiro";
+import Funcionario from "./page/Funcionarios";
 import { AuthProvider } from "./context/AuthContext";
 import { PrivateRoute } from "./routes/PrivateRoute";
+import Servicos from "./page/Servicos";
 
 function App() {
   return (
@@ -44,8 +46,10 @@ function App() {
           <Route path="/clientes" element={<PrivateRoute>
             <Clientes/>
           </PrivateRoute>} />
-          <Route path="/funcionarias" element={<div>Funcionárias</div>} />
-          <Route path="/servicos" element={<div>Serviços</div>} />
+          <Route path="/funcionarias" element={<PrivateRoute>
+            <Funcionario/>
+          </PrivateRoute>} />
+          <Route path="/servicos" element={<PrivateRoute><Servicos/></PrivateRoute>} />
           <Route path="/agendamentos" element={<div><Agenda/></div>}/>
           <Route path="/financeiro" element={<PrivateRoute>
             <Financeiro/>
