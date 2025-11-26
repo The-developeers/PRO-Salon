@@ -1,11 +1,17 @@
-import mongoose, { mongo } from "mongoose";
+import mongoose from "mongoose";
 
 const serviceSchema = new mongoose.Schema(
   {
+    categoria: { type: String, required: true },
     nome: { type: String, required: true, trim: true },
     preco: { type: Number, required: true, min: 0 },
     duracaoMinutos: { type: Number, default: 60, min: 1 },
-    ativo: { type: Boolean, default: true },
+
+    descricao: { type: String, default: "" },
+    comissao: { type: Number, default: 0 },
+    imagemUrl: { type: String, default: "" },
+
+    ativo: { type: Boolean, default: true }
   },
   { timestamps: true }
 );
