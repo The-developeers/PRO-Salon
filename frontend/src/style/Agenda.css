@@ -1,0 +1,285 @@
+/* src/style/Agenda.css */
+.home-main {
+  /* Propriedades do seu snippet */
+  padding: 0px;
+  margin: 0px;
+  background: var(--background); /* Certifique-se que var(--background) está definida! */
+  font-family: "Poppins", sans-serif;
+  box-sizing: border-box;
+
+  /* Propriedade do nosso layout Flex para fazer o conteúdo crescer */
+  flex-grow: 1;
+/* --- Cabeçalho da Agenda (AgendaHeader.tsx) --- */
+}
+/* --- Cabeçalho da Agenda --- */
+.agenda-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+  margin-top: 40px; /* Mantive sua margem */
+}
+
+.agenda-header h1 { margin: 0; }
+.agenda-header p { margin: 0; color: #666; }
+
+.btn-novo-agendamento {
+  background-color: #f59e0b;
+  color: white;
+  border: none;
+  padding: 12px 16px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+/* --- Filtros da Agenda --- */
+.agenda-filters {
+  display: flex;
+  gap: 16px;
+  margin-bottom: 24px;
+  background-color: #FFE7DB; /* Mantive sua cor laranja claro */
+  padding: 16px;
+  border-radius: 10px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  align-items: center; /* Centraliza verticalmente */
+}
+
+/* Estilo unificado para inputs e o botão */
+.agenda-filters input,
+.agenda-filters select,
+.btn-limpar-filtro {
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-family: inherit;
+  font-size: 0.9rem;
+  height: 42px; /* Força a mesma altura para todos */
+  box-sizing: border-box;
+}
+
+.agenda-filters input, 
+.agenda-filters select {
+  flex-grow: 1;
+  background-color: #fff;
+}
+
+/* Estilo Específico do Botão Limpar Filtro */
+.btn-limpar-filtro {
+  background-color: transparent; /* Fundo transparente ou cor desejada */
+  border: 1px solid #c27c56; /* Uma borda mais escura que o fundo do filtro */
+  color: #c27c56;
+  cursor: pointer;
+  font-weight: 600;
+  white-space: nowrap; /* Não deixa o texto quebrar */
+}
+.btn-limpar-filtro:hover {
+  background-color: rgba(255,255,255, 0.3);
+}
+
+/* --- Lista e Cards --- */
+.agenda-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+/* O CARD PRINCIPAL */
+.appointment-card {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  background-color: #ffffff; /* Fundo Branco */
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  padding: 16px 24px;
+  
+  border-left: 5px solid #ccc; /* A borda colorida vem daqui */
+  position: relative; /* Importante para o layout */
+}
+
+/* --- GRUPO DA ESQUERDA (Avatar + Infos) --- */
+.card-info {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.card-avatar {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+/* Container do Texto e Status */
+/* Importante: Certifique-se que no React você usou className="card-client-details" */
+.card-client-details {
+  display: flex;
+  flex-direction: column;
+  position: relative; /* O PAI É RELATIVO para o filho (status) flutuar */
+}
+
+.card-client-details strong {
+  font-size: 1.1rem;
+  color: #333;
+}
+
+.card-client-details p {
+  font-size: 0.9rem;
+  color: #777;
+  margin: 0;
+}
+
+/* --- O STATUS FLUTUANTE --- */
+.status-badge {
+  position: absolute; /* O FILHO É ABSOLUTO */
+  top: 0;             /* Alinha no topo */
+  left: 100%;         /* Joga para a direita do texto */
+  margin-left: 12px;  /* Espacinho para não grudar */
+  
+  padding: 4px 10px;
+  border-radius: 12px;
+  font-size: 11px;
+  font-weight: bold;
+  white-space: nowrap; /* Garante que fique em uma linha só */
+  text-transform: capitalize;
+}
+
+/* --- GRUPO DA DIREITA (Detalhes) --- */
+.card-details {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+
+.card-datetime {
+  display: flex;
+  flex-direction: column;
+  text-align: right;
+}
+
+.card-datetime span {
+  font-size: 0.9rem;
+  color: #555;
+}
+
+.text-danger {
+  color: #e53e3e !important;
+  font-weight: bold;
+}
+
+.card-price {
+  font-size: 1.1rem;
+  font-weight: bold;
+  color: #333;
+}
+
+.card-actions {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  color: #555;
+  cursor: pointer;
+}
+
+/* --- CORES DOS STATUS --- */
+/* Realizada (Verde) */
+.appointment-card.status-realizada { border-left-color: #31a06a; }
+.status-badge.status-realizada { background-color: #e6f7f0; color: #31a06a; }
+
+/* Agendada (Azul) */
+.appointment-card.status-agendada { border-left-color: #2b7def; }
+.status-badge.status-agendada { background-color: #e6f0fa; color: #2b7def; }
+
+/* Vencida (Vermelho) */
+.appointment-card.status-vencida { border-left-color: #e53e3e; }
+.status-badge.status-vencida { background-color: #fbebee; color: #e53e3e; }
+
+/* Aguardando (Amarelo) */
+.appointment-card.status-aguardando { border-left-color: #f59e0b; }
+.status-badge.status-aguardando { background-color: #fff8e1; color: #f59e0b; }
+
+/* src/style/Agenda.css (Adicione ao final) */
+
+/* --- MODAL --- */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5); /* Fundo escuro transparente */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000; /* Fica por cima de tudo */
+}
+
+.modal-content {
+  background: white;
+  padding: 24px;
+  border-radius: 8px;
+  width: 400px;
+  max-width: 90%;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.modal-header h2 { margin: 0; font-size: 1.25rem; }
+.close-btn { font-size: 24px; cursor: pointer; color: #666; }
+
+.modal-form label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: 500;
+  font-size: 0.9rem;
+  color: #333;
+}
+
+.modal-form input, 
+.modal-form select {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 15px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  box-sizing: border-box; /* Garante que o padding não estoure a largura */
+}
+
+.form-row {
+  display: flex;
+  gap: 15px;
+}
+
+.modal-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.btn-cancel {
+  background: #f1f1f1;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.btn-confirm {
+  background: #f59e0b;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: bold;
+}

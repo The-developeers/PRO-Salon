@@ -1,0 +1,10 @@
+body {
+  width: 100%;
+  margin-top: 70px;
+  margin-left: 260px;
+  padding: 20px;
+  min-height: calc(100vh - 70px);
+  background: var(--background);
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+}
