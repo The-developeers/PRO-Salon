@@ -1,63 +1,41 @@
-import AppointmentCard from './AppointmentCard'; 
+// src/components/AgendaList.tsx
+import { useEffect, useState } from 'react';
+import AppointmentCard from './AppointmentCard';
+import { getAgendamentos, type Agendamento } from '../api/agenda'; 
 import '../style/Agenda.css';
 
-
-const mockAppointments = [
-  {
-    id: 1,
-    clientName: 'Eduarda Pinheiro',
-    service: 'Lavagem',
-    specialist: 'Clara Viera',
-    status: 'Realizada',
-    date: '08/11/2025',
-    time: '08:28:00',
-    price: 100.00,
-    avatarUrl: '/img/avatar-eduarda.png' // <-- ADICIONE ISSO
-  },
-  {
-    id: 2,
-    clientName: 'Paula Pinheiro',
-    service: 'Lavagem',
-    specialist: 'Paula Viera',
-    status: 'Agendada',
-    date: '08/11/2025',
-    time: '08:28:00',
-    price: 100.00,
-    avatarUrl: '/img/avatar-paula.png' // <-- ADICIONE ISSO
-  },
-  {
-    id: 3,
-    clientName: 'Carla Pinheiro',
-    service: 'Escova',
-    specialist: 'Viena',
-    status: 'Aguardando',
-    date: '08/11/2025',
-    time: '08:28:00',
-    price: 100.00,
-    avatarUrl: '/img/avatar-carla.png' // <-- ADICIONE ISSO
-  },
-    {
-    id: 4,
-    clientName: 'Ana Flavia',
-    service: 'Coloração',
-    specialist: 'Rebecca Viana',
-    status: 'Vencida',
-    date: '08/11/2025',
-    time: '08:28:00',
-    price: 100.00,
-    avatarUrl: '/img/avatar-ana.png' // <-- ADICIONE ISSO
-  }
-];
-
 export default function AgendaList() {
+  const [appointments, setAppointments] = useState<Agendamento[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    async function carregarDados() {
+      setLoading(true);
+      const dados = await getAgendamentos();
+      setAppointments(dados);
+      setLoading(false);
+    }
+    carregarDados();
+  }, []);
+
+  if (loading) {
+    return <div style={{padding: 20}}>Carregando agendamentos...</div>;
+  }
+
   return (
     <div className="agenda-list">
-      {mockAppointments.map((appointment) => (
-        <AppointmentCard 
-          key={appointment.id} 
-          appointmentData={appointment} 
-        />
-      ))}
+      {appointments.length === 0 ? (
+        <div style={{padding: 20, textAlign: 'center'}}>
+           Nenhum agendamento encontrado ou erro na conexão.
+        </div>
+      ) : (
+        appointments.map((appointment) => (
+          <AppointmentCard 
+            key={appointment.id} 
+            appointmentData={appointment} 
+          />
+        ))
+      )}
     </div>
   );
 }

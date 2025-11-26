@@ -1,5 +1,5 @@
 import Layout from "../components/Layout";
-import React, { useState } from "react";
+import { useState } from "react";
 import { useEmployees } from "../hooks/useEmployees";
 import { EmployeeCard } from "../components/EmployeeCard";
 import "../style/Funcionarios.css";
