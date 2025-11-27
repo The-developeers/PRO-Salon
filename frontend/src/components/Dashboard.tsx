@@ -95,27 +95,44 @@ export default function Dashboard() {
           </div>
 
           <div className="ag-list">
-            {stats.listaHoje.length === 0 ? (
-              <p style={{padding: 20, color: '#888'}}>Nenhum agendamento para hoje.</p>
-            ) : (
-              stats.listaHoje.map((item: any, idx) => (
-                <div key={idx} className="ag-item">
-                  <div>
-                    <p className="ag-name">{item.cliente?.nome || 'Cliente'}</p>
-                    <p className="ag-servico">{item.servico?.nome || 'Serviço'}</p>
-                  </div>
-                  <div className="ag-info">
-                    <p className="ag-hora">{formatHora(item.dataHora)}</p>
-                    <p className="ag-pro">{item.funcionario?.nome || 'Pro'}</p>
-                  </div>
-                  {/* Tratamento de cor do status */}
-                  <span className={`status ${item.status?.toLowerCase() || 'marcado'}`}>
-                    {item.status}
-                  </span>
-                </div>
-              ))
-            )}
+  {stats.listaHoje.length === 0 ? (
+    <p style={{ padding: 20, color: '#888' }}>Nenhum agendamento para hoje.</p>
+  ) : (
+    stats.listaHoje.map((item: any, idx) => (
+      // Adicionamos a classe baseada no status para pintar a borda esquerda
+      <div key={idx} className={`ag-item status-${item.status?.toLowerCase() || 'marcado'}`}>
+        
+        {/* LADO ESQUERDO: Avatar + Infos */}
+        <div className="ag-left">
+          {/* Avatar (Se não tiver foto, usa um placeholder) */}
+          <img 
+            src={item.cliente?.avatar || "https://ui-avatars.com/api/?name=" + (item.cliente?.nome || "C")} 
+            alt="Avatar" 
+            className="ag-avatar"
+          />
+          
+          <div className="ag-texts">
+            <p className="ag-name">{item.cliente?.nome || 'Cliente'}</p>
+            <p className="ag-servico">{item.servico?.nome || 'Serviço'}</p>
           </div>
+        </div>
+
+        {/* LADO DIREITO: Hora + Pro + Status */}
+        <div className="ag-right">
+          <div className="ag-info">
+            <p className="ag-hora">{formatHora(item.dataHora)}</p>
+            <p className="ag-pro">{item.funcionario?.nome?.split(' ')[0] || 'Pro'}</p> {/* Só o primeiro nome */}
+          </div>
+          
+          <span className={`status ${item.status?.toLowerCase() || 'marcado'}`}>
+            {item.status}
+          </span>
+        </div>
+
+      </div>
+    ))
+  )}
+</div>
         </div>
 
         {/* TIMELINE: Agenda do Dia */}
