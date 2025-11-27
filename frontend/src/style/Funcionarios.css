@@ -1,0 +1,295 @@
+/* src/style/employees.css */
+.employees-page {
+  padding: 20px;
+  font-family: Inter, system-ui, sans-serif;
+}
+.emp-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+  gap: 12px;
+}
+.header-actions {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+.search-input {
+  padding: 8px 10px;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+}
+.btn-search,
+.btn-new {
+  padding: 8px 12px;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  background: #e91e63;
+  color: white;
+}
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 16px;
+}
+.emp-card {
+  background: #fff;
+  padding: 14px;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.04);
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.emp-card-top {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.avatar {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: #f3c;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-weight: 700;
+}
+.info h3 {
+  margin: 0;
+  font-size: 16px;
+}
+.cargo {
+  color: #777;
+  font-size: 13px;
+}
+.status {
+  margin-left: auto;
+  padding: 6px 8px;
+  border-radius: 10px;
+  font-size: 12px;
+}
+.status.ativo {
+  background: #e6f7ec;
+  color: #067a17;
+}
+.status.inativo {
+  background: #fff0f0;
+  color: #a80000;
+}
+.emp-body {
+  font-size: 14px;
+  color: #444;
+}
+.emp-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+  margin-top: 8px;
+}
+.btn-edit,
+.btn-delete {
+  padding: 6px 10px;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+}
+.btn-edit {
+  background: #fff;
+  border: 1px solid #e0a;
+}
+.btn-delete {
+  background: #fff;
+  border: 1px solid #f44336;
+  color: #f44336;
+}
+
+/* Modal */
+.modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.35);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 50;
+}
+.modal {
+  background: white;
+  padding: 20px;
+  border-radius: 12px;
+  width: 420px;
+  max-width: 95%;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+}
+.modal label {
+  display: block;
+  margin-top: 10px;
+  font-size: 13px;
+  color: #333;
+}
+.modal input[type="text"],
+.modal input[type="tel"] {
+  width: 100%;
+  padding: 8px;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+  margin-top: 6px;
+}
+.modal-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+  margin-top: 12px;
+}
+.btn-cancel {
+  background: #fff;
+  border: 1px solid #ddd;
+  padding: 8px 12px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+.btn-save {
+  background: #e91e63;
+  color: white;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+.center {
+  text-align: center;
+  padding: 20px;
+}
+.error {
+  color: #b00020;
+  padding: 8px 0;
+}
+/* ==========================================================================
+   --- RESPONSIVIDADE (MOBILE & TABLET) ---
+   Adicione isso no final do arquivo para funcionar em telas pequenas
+   ========================================================================== */
+
+@media (max-width: 768px) {
+  
+  .employees-page {
+    padding: 16px; /* Reduz padding lateral para ganhar espaço */
+  }
+
+  /* 1. Cabeçalho Empilhado */
+  .emp-header {
+    flex-direction: column; /* Título em cima, ações embaixo */
+    align-items: flex-start; /* Alinha à esquerda */
+    gap: 16px;
+  }
+
+  /* 2. Ações ocupam largura total */
+  .header-actions {
+    width: 100%;
+    display: flex;
+    flex-direction: column; /* Input em cima, botões embaixo */
+    gap: 10px;
+  }
+
+  .search-input {
+    width: 100%; /* Input preenche a tela */
+    padding: 12px; /* Maior área de toque */
+    font-size: 16px; /* Evita zoom automático no iPhone */
+  }
+
+  /* Container para os botões ficarem lado a lado abaixo do search */
+  .header-actions {
+    display: grid;
+    grid-template-columns: 1fr auto; /* Search ocupa espaço, botão search auto */
+    gap: 8px;
+  }
+  
+  /* Ajuste específico para quando quiser que o "Novo Funcionário" fique separado ou junto
+     Neste caso, vou fazer um layout onde o Search e BtnSearch ficam numa linha
+     e o BtnNew fica numa linha abaixo (mais fácil de clicar) 
+  */
+  
+  /* Sobrescrevendo para um layout mobile ideal: */
+  .header-actions {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+  }
+
+  /* Grupo de busca */
+  .search-group { /* Se você tiver uma div envolvendo input e btn, se não, ajusta aqui */
+     display: flex;
+     width: 100%;
+     gap: 8px;
+  }
+
+  /* Se não tiver div extra no HTML, vamos fazer o seguinte via CSS Grid no pai: */
+  .emp-header {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .header-actions {
+    display: flex;
+    flex-direction: column; 
+    width: 100%;
+  }
+  
+  /* Vamos supor que a estrutura HTML é <input> <btnSearch> <btnNew> */
+  /* Vamos fazer o input ocupar 100% e os botões ficarem embaixo */
+  
+  .search-input {
+    order: 1;
+    width: 100%;
+    margin-bottom: 8px;
+  }
+
+  .btn-search {
+    order: 2;
+    width: 100%; /* Botão grande para toque */
+    justify-content: center;
+    display: flex;
+  }
+
+  .btn-new {
+    order: 3;
+    width: 100%; /* Botão grande para destaque */
+    margin-top: 8px;
+    justify-content: center;
+    display: flex;
+    padding: 12px;
+  }
+
+  /* 3. Grid de 1 Coluna */
+  .grid {
+    grid-template-columns: 1fr; /* Força uma coluna única */
+  }
+
+  /* 4. Ajustes no Card */
+  .emp-card {
+    padding: 16px;
+  }
+
+  .avatar {
+    width: 48px;
+    height: 48px;
+    font-size: 0.9rem;
+  }
+
+  /* 5. Modal Responsivo */
+  .modal {
+    width: 100%;
+    margin: 0 10px;
+    padding: 16px;
+  }
+  
+  .modal-actions button {
+    padding: 12px; /* Botões maiores no modal para facilitar o toque */
+    flex-grow: 1; /* Botões ocupam largura igual */
+    text-align: center;
+  }
+}

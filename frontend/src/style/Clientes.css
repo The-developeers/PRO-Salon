@@ -1,0 +1,308 @@
+.clientes-page {
+  padding: 24px;
+  background: linear-gradient(180deg, #fffafa 0%, #f7eaf0 100%);
+  min-height: calc(100vh - 70px);
+  box-sizing: border-box;
+}
+
+.clientes-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 18px;
+}
+
+.title h1 {
+  margin: 0;
+  font-size: 20px;
+}
+.subtitle {
+  color: #666;
+  font-size: 13px;
+}
+
+.actions .btn {
+  padding: 8px 12px;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+}
+
+.btn.primary {
+  background: #e91e63;
+  color: white;
+}
+
+/* SEARCH */
+.clientes-search {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+  margin-bottom: 18px;
+}
+
+.clientes-search input {
+  flex: 1;
+  padding: 12px 14px;
+  border-radius: 10px;
+  border: 1px solid #eee;
+  background: #fff;
+}
+
+.clientes-search .total {
+  color: #666;
+  font-size: 14px;
+}
+
+/* TABLE */
+.clientes-table {
+  background: white;
+  border-radius: 12px;
+  padding: 14px;
+  box-shadow: 0 6px 18px rgba(233, 30, 99, 0.04);
+}
+
+.table-head {
+  display: grid;
+  grid-template-columns: 2fr 2fr 1fr 1fr 1fr 0.8fr;
+  gap: 16px;
+  padding: 12px 8px;
+  font-size: 13px;
+  color: #666;
+  border-bottom: 1px solid #f1f1f1;
+}
+
+.table-body {
+  display: flex;
+  flex-direction: column;
+}
+
+.row {
+  display: grid;
+  grid-template-columns: 2fr 2fr 1fr 1fr 1fr 0.8fr;
+  gap: 16px;
+  align-items: center;
+  padding: 14px 8px;
+  border-bottom: 1px solid #f7f7f7;
+}
+
+.row:last-child {
+  border-bottom: none;
+}
+
+.col.cliente {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.avatar {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background: #fde8ef;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #e91e63;
+  font-weight: 700;
+}
+
+.nome {
+  font-weight: 600;
+}
+
+.email {
+  color: #888;
+  font-size: 13px;
+}
+
+.badge {
+  display: inline-block;
+  padding: 6px 10px;
+  border-radius: 999px;
+  font-size: 12px;
+  color: #2c2c2c;
+}
+
+.badge.ativo {
+  background: #e6f9ec;
+  color: #1b8a3a;
+}
+
+.badge.inativo {
+  background: #f2f2f2;
+  color: #777;
+}
+
+/* ações */
+.acoes {
+  display: flex;
+  gap: 8px;
+}
+
+.icon {
+  border: none;
+  background: none;
+  cursor: pointer;
+  padding: 6px;
+  border-radius: 6px;
+}
+
+.icon:hover {
+  background: #faf0f4;
+}
+
+/* no results */
+.no-results {
+  padding: 32px;
+  text-align: center;
+  color: #888;
+}
+
+/* modais */
+.modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.35);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 999;
+}
+
+.modal {
+  background: #fff;
+  padding: 18px;
+  width: 520px;
+  border-radius: 10px;
+  box-shadow: 0 8px 30px rgba(0,0,0,0.12);
+}
+
+.modal h3 { margin-top: 0; }
+
+.modal form {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.modal label { font-size: 13px; color: #333; }
+
+.modal input {
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid #eee;
+}
+
+.modal-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+  margin-top: 12px;
+}
+/* ==========================================================================
+   --- RESPONSIVIDADE (MOBILE & TABLET) ---
+   Adicione isso no FINAL do seu arquivo CSS de Clientes
+   ========================================================================== */
+
+@media (max-width: 768px) {
+  
+  /* 1. Ajuste do Container Principal */
+  .clientes-page {
+    padding: 16px; /* Reduz padding para ganhar espaço */
+  }
+
+  /* 2. Cabeçalho (Título e Botão) */
+  .clientes-header {
+    flex-direction: column; /* Um embaixo do outro */
+    align-items: flex-start;
+    gap: 16px;
+  }
+
+  .actions, .actions .btn {
+    width: 100%; /* Botão ocupa a largura toda (fácil de clicar) */
+    text-align: center;
+  }
+
+  /* 3. Busca */
+  .clientes-search {
+    flex-direction: column;
+    align-items: stretch; /* Estica o input */
+    gap: 10px;
+  }
+
+  .clientes-search .total {
+    text-align: right;
+    font-size: 12px;
+  }
+
+  /* 4. TABELA VIRA CARDS (A Mágica acontece aqui) */
+  
+  /* Esconde o cabeçalho da tabela (Nome, Email, etc) pois não faz sentido em cards */
+  .table-head {
+    display: none;
+  }
+
+  .clientes-table {
+    background: transparent; /* Remove fundo branco do container geral */
+    padding: 0;
+    box-shadow: none;
+  }
+
+  /* Cada linha vira um Cartão */
+  .row {
+    display: flex; /* Desliga o Grid */
+    flex-direction: column; /* Empilha as colunas */
+    background: white;
+    margin-bottom: 16px;
+    border-radius: 12px;
+    padding: 16px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+    border: 1px solid #f0f0f0;
+    gap: 12px; /* Espaço entre as informações dentro do card */
+  }
+
+  /* Ajustes específicos para as colunas dentro do card */
+  .col.cliente {
+    border-bottom: 1px solid #f7f7f7;
+    padding-bottom: 12px;
+    margin-bottom: 4px;
+  }
+
+  /* Para dar contexto, podemos adicionar labels via CSS se necessário, 
+     ou apenas estilizar o texto */
+  .col {
+    font-size: 14px;
+    color: #555;
+    display: flex;
+    justify-content: space-between; /* Se tiver label e valor */
+    align-items: center;
+  }
+
+  /* Ações (Botões de editar/excluir) */
+  .col:last-child {
+    justify-content: flex-end; /* Joga os ícones para a direita */
+    border-top: 1px solid #f7f7f7;
+    padding-top: 12px;
+    margin-top: 4px;
+  }
+
+  .acoes {
+    width: 100%;
+    justify-content: flex-end;
+  }
+
+
+  /* Ícones maiores para toque */
+  .icon {
+    padding: 10px; 
+    background-color: #f9f9f9; /* Fundo leve para indicar botão */
+  }
+
+  /* 5. MODAL RESPONSIVO */
+  .modal {
+    width: 90%; /* Ocupa 90% da tela em vez de 520px fixo */
+    max-height: 90vh; /* Se for muito alto, permite scroll */
+  }
+}

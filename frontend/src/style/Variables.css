@@ -1,0 +1,18 @@
+:root {
+  /* Cores Gerais */
+  --background: #FCF2F9;
+  --text: #222;
+
+  /* Cores de LInks */
+  --link-color: deeppink;
+  --link-bg: #ffc0cb4d;
+  --rosa-primario: #ff69b4;
+  --rosa-claro: #ffc0cb;
+  --rosa-hover: #ff97c3;
+
+  /* Cores de funcionalidades */
+  --botao-vermelho: #d9534f;
+  --confirmado: #DCFCE7;
+  --em-andamento: #DBEAFE;
+  --agendado: #FEF9C3;
+}

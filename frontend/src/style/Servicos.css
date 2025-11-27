@@ -1,0 +1,354 @@
+/* Variáveis locais para facilitar ajustes */
+:root {
+  --primary-brown: #C58A6F; /* Tom terracota do botão novo serviço */
+  --bg-page: #fff;
+  --text-dark: #333;
+  --text-light: #777;
+  
+  /* Cores dos botões de ação */
+  --btn-detail-bg: #EADBC8; /* Bege escuro */
+  --btn-edit-bg: #C7F08B;   /* Verde limão suave */
+  --btn-pause-bg: #F6C971;  /* Amarelo/Laranja */
+}
+
+.servicos-page {
+  padding: 2rem;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  font-family: 'Inter', sans-serif; /* Assumindo fonte padrão */
+}
+
+/* --- Header --- */
+.servicos-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 2rem;
+}
+
+.header-text h1 {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #000;
+  margin-bottom: 0.5rem;
+}
+
+.header-text p {
+  color: #666;
+  font-size: 0.95rem;
+}
+
+.btn-novo-servico {
+  background-color: var(--primary-brown);
+  color: white;
+  border: none;
+  padding: 0.8rem 1.5rem;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  transition: opacity 0.2s;
+  box-shadow: 0 4px 6px rgba(197, 138, 111, 0.3);
+}
+
+.btn-novo-servico:hover {
+  opacity: 0.9;
+}
+
+/* --- Filtros --- */
+.servicos-filters-bar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  align-items: center;
+  margin-bottom: 2.5rem;
+}
+
+.search-wrapper {
+  background: white;
+  border: 1px solid #eee;
+  border-radius: 8px;
+  padding: 0.6rem 1rem;
+  display: flex;
+  align-items: center;
+  flex: 1;
+  min-width: 250px;
+  max-width: 400px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+}
+
+.search-wrapper input {
+  border: none;
+  outline: none;
+  margin-left: 10px;
+  font-size: 0.95rem;
+  width: 100%;
+  color: #555;
+}
+
+.category-pills {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.pill {
+  padding: 0.5rem 1.2rem;
+  border: none;
+  border-radius: 6px;
+  background-color: #EFEFEF;
+  color: #555;
+  font-weight: 600;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.pill.active {
+  background-color: #B07B62; /* Tom marrom mais escuro */
+  color: white;
+}
+
+.pill:hover:not(.active) {
+  background-color: #ddd;
+}
+
+/* --- Grid --- */
+.servicos-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 2rem;
+}
+
+/* --- Card --- */
+.service-card {
+  background: #FFF4EF; /* Fundo bege bem claro igual da imagem */
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.2s;
+}
+
+.service-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+.card-image {
+  height: 200px;
+  width: 100%;
+  background-size: cover;
+  background-position: center;
+}
+
+.card-content {
+  padding: 1.2rem;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.card-header-info {
+  margin-bottom: 0.8rem;
+}
+
+.card-header-info h3 {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #222;
+  margin-bottom: 0.4rem;
+}
+
+/* Badges Coloridas */
+.badge {
+  font-size: 0.7rem;
+  padding: 3px 10px;
+  border-radius: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  display: inline-block;
+}
+.badge-cabelo { background-color: #F3D0C2; color: #5c3a2e; }
+.badge-unhas { background-color: #E8C6C6; color: #5c2e2e; }
+.badge-sobrancelha { background-color: #F3E2C2; color: #665228; }
+.badge-estetica { background-color: #C2F3E4; color: #286652; }
+
+.card-description {
+  font-size: 0.85rem;
+  color: #555;
+  line-height: 1.4;
+  margin-bottom: 1.5rem;
+  flex-grow: 1;
+}
+
+/* Linhas de Estatísticas (Preço, Duração) */
+.card-stats {
+  margin-bottom: 1.5rem;
+}
+
+.stat-item {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 0.3rem;
+  font-size: 0.9rem;
+}
+
+.stat-item .label {
+  font-weight: 600;
+  color: #333;
+}
+
+.stat-item .value {
+  color: #555;
+}
+
+/* Botões do Card */
+.card-actions {
+  display: flex;
+  gap: 0.8rem;
+}
+
+.action-btn {
+  border: none;
+  border-radius: 6px;
+  padding: 0.6rem 1rem;
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: filter 0.2s;
+}
+
+.action-btn:hover {
+  filter: brightness(0.95);
+}
+
+.btn-detail {
+  flex: 1.5;
+  background-color: var(--btn-detail-bg);
+  color: #5D4037;
+  display: none;
+}
+
+.btn-edit {
+  flex: 1;
+  background-color: var(--btn-edit-bg);
+  color: #3E5221;
+}
+
+.btn-pause {
+  flex: 0.5;
+  background-color: var(--btn-pause-bg);
+  color: #664D1E;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Modal de criação/edição de serviço */
+.servico-modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.35);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 999;
+}
+
+.servico-modal {
+  background: #fff;
+  border-radius: 12px;
+  padding: 1.5rem 1.75rem;
+  width: 100%;
+  max-width: 420px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+  font-family: "Inter", sans-serif;
+}
+
+.servico-modal h2 {
+  margin-top: 0;
+  margin-bottom: 1rem;
+}
+
+.servico-modal form {
+  display: flex;
+  flex-direction: column;
+  gap: 0.7rem;
+}
+
+.servico-modal label {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #444;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.servico-modal input,
+.servico-modal select,
+.servico-modal textarea {
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  padding: 0.45rem 0.7rem;
+  font-size: 0.9rem;
+  outline: none;
+}
+
+.servico-modal input:focus,
+.servico-modal select:focus,
+.servico-modal textarea:focus {
+  border-color: #c58a6f;
+}
+
+.servico-modal-actions {
+  margin-top: 1rem;
+  display: flex;
+  gap: 0.7rem;
+  justify-content: flex-end;
+}
+
+.btn-secondary {
+  background-color: #eeeeee;
+  color: #333;
+}
+
+/* Card pausado – deixa tudo preto e branco */
+.service-card.paused {
+  filter: grayscale(100%);
+  opacity: 0.6;
+}
+
+/* Botão pausado */
+.btn-pause.paused {
+  background-color: #444 !important;
+  color: #fff !important;
+  border: 1px solid #222 !important;
+}
+
+/* Botão ativo */
+.btn-pause.active {
+  background-color: var(--btn-pause-bg) !important; /* Amarelo (#F6C971) */
+  color: #664D1E !important; /* Marrom escuro para contraste */
+  border: none;
+}
+
+
+.btn-delete {
+  background-color: #ffcccb;
+  color: #8b0000;
+  flex: 0.5;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid #ffb3b3;
+}
+
+.btn-delete:hover {
+  background-color: #ffb3b3;
+  border-color: #ff9999;
+}

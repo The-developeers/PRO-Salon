@@ -1,0 +1,17 @@
+.layout {
+  display: flex;
+  height: 100vh;
+}
+
+.main-content {
+  margin-left: 260px; /* Sidebar */
+  margin-top: 70px;   /* Header */
+  width: calc(100% - 260px);
+  height: calc(100vh - 70px);
+  overflow-y: auto;
+  background: #f6f6f6;
+}
+
+.page-content {
+  padding: 20px 30px;
+}

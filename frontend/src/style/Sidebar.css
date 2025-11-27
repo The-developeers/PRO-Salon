@@ -1,0 +1,95 @@
+/* CONTAINER PRINCIPAL DA SIDEBAR */
+.sidebar-container {
+  width: 260px;
+  height: 100vh;
+  background: var(--fundo-claro);
+  border-right: 1px solid #f3f3f3;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 998;
+}
+
+/* MENU PRINCIPAL */
+.sidebar-menu {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+/* ITEM DO MENU */
+.item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 14px;
+  text-decoration: none;
+  font-size: 15px;
+  color: #444;
+  transition: background .15s ease, color .15s ease;
+}
+
+#p-item {
+  margin-top: 40%;
+}
+
+/* ÍCONES */
+.item svg {
+  font-size: 20px;
+}
+
+/* HOVER */
+.item:hover {
+  background: var(--link-bg);
+  color: var(--rosa-primario);
+}
+
+/* ATIVO (ROUTE ATIVA DO NAVLINK) */
+.item.active {
+  background: var(--link-bg);
+  font-weight: 600;
+  color: var(--rosa-primario);
+}
+
+/* ÁREA INFERIOR: AJUDA + SAIR */
+.sidebar-bottom {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: auto;
+}
+
+/* BOTÃO DE SAIR */
+.logout-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  text-align: left;
+  width: 100%;
+  padding: 12px 14px;
+  font-size: 15px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  border-radius: 10px;
+  color: var(--botao-vermelho);
+  transition: background .15s;
+}
+
+/* Ícone do sair */
+.logout-btn svg {
+  font-size: 20px;
+}
+
+/* Hover no sair */
+.logout-btn:hover {
+  background: #ffe5e5;
+}
+
+/* Hover no ajuda */
+.sidebar-bottom .item:hover {
+  background: var(--link-bg);
+}
