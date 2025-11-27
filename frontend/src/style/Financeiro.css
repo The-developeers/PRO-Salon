@@ -1,0 +1,419 @@
+/* =============================== */
+/* CONTAINER GERAL DO FINANCEIRO  */
+/* =============================== */
+
+.financeiro-container {
+  width: 100%;
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 20px 30px;
+}
+
+/* =============================== */
+/* HEADER                         */
+/* =============================== */
+
+.financeiro-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+}
+
+.financeiro-title {
+  font-size: 2rem;
+  font-weight: 600;
+  color: var(--text);
+}
+
+.financeiro-subtitle {
+  font-size: 0.95rem;
+  color: #666;
+}
+
+.financeiro-nova-transacao-btn {
+  background: var(--rosa-primario);
+  color: #fff;
+  border: none;
+  padding: 12px 26px;
+  border-radius: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+
+.financeiro-nova-transacao-btn:hover {
+  background: var(--rosa-hover);
+}
+
+/* =============================== */
+/* SUMMARY (RESUMO TOP)           */
+/* =============================== */
+
+.finance-summary-container {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 18px;
+  margin-bottom: 24px;
+}
+
+/* Cartões de resumo */
+.summary-card {
+  background: #fff;
+  padding: 18px 20px;
+  border-radius: 14px;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.08);
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.summary-title {
+  font-size: 0.9rem;
+  color: #666;
+  font-weight: 500;
+}
+
+.summary-value {
+  font-size: 1.4rem;
+  font-weight: 700;
+}
+
+/* Cores por tipo */
+.summary-receita {
+  color: #16a34a;
+}
+
+.summary-despesa {
+  color: #dc2626;
+}
+
+.summary-saldo {
+  color: #2563eb;
+}
+
+.summary-pendente {
+  color: #d97706;
+}
+
+/* Para o FinanceCard (se for usado) */
+.finance-card {
+  background: #fff;
+  padding: 18px 20px;
+  border-radius: 14px;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.08);
+}
+
+/* =============================== */
+/* FILTROS                        */
+/* =============================== */
+
+.finance-filter-wrapper {
+  background: #fff;
+  padding: 18px 22px;
+  border-radius: 14px;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.08);
+  margin-bottom: 24px;
+}
+
+.finance-filter-container {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  gap: 18px;
+}
+
+.finance-filter-field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.finance-filter-label {
+  font-size: 0.85rem;
+  color: #555;
+  font-weight: 500;
+}
+
+.finance-filter-select,
+.finance-filter-input {
+  border: 1px solid #ddd;
+  padding: 9px 12px;
+  border-radius: 10px;
+  font-size: 0.9rem;
+  background: #fff;
+  min-width: 160px;
+}
+
+.finance-filter-clear {
+  background: #f3f3f3;
+  border: none;
+  padding: 10px 18px;
+  border-radius: 10px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  margin-top: 4px;
+}
+
+.finance-filter-clear:hover {
+  background: #e5e5e5;
+}
+
+/* =============================== */
+/* LISTA DE TRANSAÇÕES            */
+/* =============================== */
+
+.finance-list-container {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+/* ITEM */
+.finance-item {
+  background: #fff;
+  padding: 18px 22px;
+  border-radius: 14px;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.08);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition: box-shadow 0.2s ease, transform 0.2s ease;
+}
+
+.finance-item:hover {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+  transform: translateY(-1px);
+}
+
+.finance-item-left {
+  display: flex;
+  gap: 14px;
+  align-items: center;
+}
+
+/* Ícone de tipo */
+.finance-item-icon {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.finance-item-icon.receita {
+  background: #dcfce7;
+  border: 2px solid #16a34a;
+}
+
+.finance-item-icon.despesa {
+  background: #fee2e2;
+  border: 2px solid #dc2626;
+}
+
+.finance-item-title {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #333;
+}
+
+.finance-item-category {
+  font-size: 0.85rem;
+  color: #777;
+}
+
+/* Lado direito */
+.finance-item-right {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.finance-item-date {
+  font-size: 0.85rem;
+  color: #777;
+}
+
+.finance-item-value {
+  font-size: 1rem;
+  font-weight: 700;
+}
+
+.finance-item-value.income {
+  color: #16a34a;
+}
+
+.finance-item-value.expense {
+  color: #dc2626;
+}
+
+/* Status (usa .finance-status no componente) */
+.finance-status {
+  font-size: 0.75rem;
+  padding: 4px 10px;
+  border-radius: 999px;
+  font-weight: 600;
+}
+
+.finance-status.pago {
+  background: #dcfce7;
+  color: #15803d;
+}
+
+.finance-status.pendente {
+  background: #fff7ed;
+  color: #d97706;
+}
+
+.finance-status.cancelado {
+  background: #fee2e2;
+  color: #dc2626;
+}
+
+.finance-item-details {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--rosa-primario);
+  background: transparent;
+  border: none;
+  cursor: pointer;
+}
+
+.finance-item-details:hover {
+  text-decoration: underline;
+}
+
+/* =============================== */
+/* MODAL — NOVA TRANSACAO         */
+/* =============================== */
+
+.finance-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.45);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+}
+
+.finance-modal {
+  background: #fff;
+  width: 460px;
+  max-width: 95%;
+  padding: 26px 24px;
+  border-radius: 16px;
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.2);
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.modal-title {
+  font-size: 1.3rem;
+  font-weight: 600;
+  margin-bottom: 4px;
+}
+
+.modal-field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.modal-field label {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #444;
+}
+
+.modal-field input,
+.modal-field select {
+  border: 1px solid #ddd;
+  padding: 9px 12px;
+  border-radius: 10px;
+  font-size: 0.9rem;
+  background: #fff;
+}
+
+/* Linha com Valor + Data */
+.modal-row {
+  display: flex;
+  gap: 14px;
+}
+
+.modal-buttons {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.modal-btn-cancel {
+  background: #f3f3f3;
+  border: none;
+  padding: 9px 16px;
+  border-radius: 10px;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.modal-btn-save {
+  background: var(--rosa-primario);
+  border: none;
+  padding: 9px 18px;
+  border-radius: 10px;
+  font-weight: 600;
+  color: #fff;
+  cursor: pointer;
+}
+
+.modal-btn-save:hover {
+  background: var(--rosa-hover);
+}
+
+/* =============================== */
+/* RESPONSIVIDADE BÁSICA          */
+/* =============================== */
+
+@media (max-width: 1024px) {
+  .finance-summary-container {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .financeiro-container {
+    padding: 16px;
+  }
+
+  .finance-item-right {
+    flex-direction: column;
+    align-items: flex-end;
+  }
+}
+
+@media (max-width: 768px) {
+  .finance-summary-container {
+    grid-template-columns: 1fr;
+  }
+
+  .financeiro-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+
+  .finance-item {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+
+  .finance-item-right {
+    align-items: flex-start;
+  }
+}
