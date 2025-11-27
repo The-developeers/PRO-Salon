@@ -1,7 +1,7 @@
 import React, { useState, useMemo, useEffect } from "react";
 import Layout from "../components/Layout";
 import { Search, Plus } from "lucide-react";
-import { FaPause, FaPen, FaEye, FaPlay } from "react-icons/fa"; // Adicionado FaPlay
+import { FaPause, FaPen, FaEye, FaPlay, FaTrash } from "react-icons/fa";
 import "../style/Servicos.css";
 import "../style/Variables.css";
 import {
@@ -9,6 +9,7 @@ import {
   apiCreateService,
   apiUpdateService,
   apiToggleService,
+  apiDeleteService, // <--- Importado aqui
 } from "../api/services";
 
 // Tipagem usada na tela
@@ -111,6 +112,14 @@ const formatDuracao = (minutos: number | undefined) => {
 
 const categorias: Categoria[] = ["Cabelo", "Unhas", "Estética", "Sobrancelha"];
 
+// Imagens padrão para preenchimento automático
+const IMAGENS_PADRAO = {
+  Cabelo: "https://images.unsplash.com/photo-1562322140-8baeececf3df?auto=format&fit=crop&w=400&q=80",
+  Unhas: "https://images.unsplash.com/photo-1604654894610-df63bc536371?auto=format&fit=crop&w=400&q=80",
+  Estética: "https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?auto=format&fit=crop&w=400&q=80",
+  Sobrancelha: "https://images.unsplash.com/photo-1588097281266-310ce946438c?auto=format&fit=crop&w=400&q=80",
+};
+
 export default function Servicos() {
   const [servicos, setServicos] = useState<Servico[]>([]);
   const [loading, setLoading] = useState(false);
@@ -205,7 +214,7 @@ export default function Servicos() {
       preco: 0,
       duracaoMinutos: 60,
       comissao: 0,
-      imagemUrl: "",
+      imagemUrl: IMAGENS_PADRAO["Cabelo"], // Já inicia com imagem padrão
       descricao: "",
       ativo: true,
     });
@@ -234,6 +243,23 @@ export default function Servicos() {
     } catch (e) {
       console.error(e);
       alert("Erro ao atualizar serviço.");
+    }
+  }
+
+  // --- NOVA FUNÇÃO DE DELETAR ---
+  async function handleDelete(id: string) {
+    const confirmacao = window.confirm(
+      "Tem certeza que deseja excluir este serviço? Essa ação não pode ser desfeita."
+    );
+
+    if (confirmacao) {
+      try {
+        await apiDeleteService(id);
+        await loadServices(); // Recarrega a lista
+      } catch (e) {
+        console.error(e);
+        alert("Erro ao excluir serviço.");
+      }
     }
   }
 
@@ -364,13 +390,22 @@ export default function Servicos() {
                     <FaPen style={{ marginRight: 4 }} />
                     Editar
                   </button>
-                  {/* CORREÇÃO: Adicionada classe condicional e ícone Play/Pause */}
+                  
                   <button
                     className={`action-btn btn-pause ${!servico.ativo ? "paused" : "active"}`}
                     onClick={() => handlePause(servico)}
                     title={servico.ativo ? "Pausar" : "Reativar"}
                   >
                     {servico.ativo ? <FaPause /> : <FaPlay style={{ marginLeft: 2 }} />}
+                  </button>
+
+                  {/* --- BOTÃO DE EXCLUIR --- */}
+                  <button
+                    className="action-btn btn-delete"
+                    onClick={() => handleDelete(servico.id)}
+                    title="Excluir"
+                  >
+                    <FaTrash />
                   </button>
                 </div>
               </div>
@@ -398,9 +433,15 @@ export default function Servicos() {
                   Categoria
                   <select
                     value={form.categoria}
-                    onChange={(e) =>
-                      setForm({ ...form, categoria: e.target.value as Categoria })
-                    }
+                    onChange={(e) => {
+                      const novaCategoria = e.target.value as Categoria;
+                      setForm({
+                        ...form,
+                        categoria: novaCategoria,
+                        // Troca imagem automaticamente
+                        imagemUrl: IMAGENS_PADRAO[novaCategoria] || form.imagemUrl 
+                      });
+                    }}
                   >
                     {categorias.map((c) => (
                       <option key={c} value={c}>
@@ -479,7 +520,7 @@ export default function Servicos() {
                 <div className="servico-modal-actions">
                   <button
                     type="button"
-                    className="action-btn btn-secondary" 
+                    className="action-btn btn-secondary" // Classe corrigida para aparecer o botão
                     onClick={() => setShowForm(false)}
                   >
                     Cancelar
