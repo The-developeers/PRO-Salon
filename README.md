@@ -49,6 +49,7 @@ Com o tempo, poderá evoluir para um **painel completo de gestão**, centralizan
 ---
 
 ✨ *Projeto em desenvolvimento contínuo. Futuras versões incluirão mais funcionalidades de gestão e automação de processos.*
+<<<<<<< HEAD
 
 # **Pro Salon – Instruções de Instalação e Execução**
 
@@ -168,3 +169,5 @@ http://localhost:5173
 Agora você já pode usar o sistema Pro Salon com o frontend e backend funcionando juntos.
 
 ---
+=======
+>>>>>>> 4b8bd73a0e5869809df2d2b395763fb4a2a67c9f
