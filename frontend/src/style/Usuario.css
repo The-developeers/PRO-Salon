@@ -1,105 +1,104 @@
-/* ===== ESTILOS EQUIVALENTES AO BODY ===== */
-.usuario-page {
-  display: flex;
-  width: 100%;
-  margin-top: 70px;
-  margin-left: 260px;
-  padding: 20px;
-  min-height: calc(100vh - 70px);
-  background: var(--background);
-  box-sizing: border-box;
-}
-
-/* ===== ÁREA DE CONTEÚDO (AO LADO DO SIDEBAR) ===== */
-.usuario-conteudo {
-  width: 100%;
-}
-
-/* ===== CONTAINER DO USUÁRIO ===== */
-.usuario-container {
-  background: white;
-  border-radius: 16px;
+/* src/style/profile.css */
+.profile-page {
   padding: 24px;
-  width: 100%;
-  max-width: 600px;
-  box-shadow: 0 0 10px rgba(0,0,0,0.05);
+  max-width: 1100px;
+  margin: 0 auto;
+  font-family: Inter, system-ui, sans-serif;
 }
-
-/* ===== TÍTULO ===== */
-.usuario-title {
-  font-size: 1.4rem;
-  font-weight: 600;
-  margin-bottom: 20px;
-  color: var(--text);
+.profile-header h1 {
+  font-size: 28px;
+  margin-bottom: 16px;
+}
+.profile-card {
   display: flex;
   align-items: center;
-}
-
-/* ===== FORM ===== */
-.usuario-form {
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-}
-
-.usuario-label {
-  font-size: 0.9rem;
-  font-weight: 500;
-  margin-bottom: 6px;
-}
-
-.usuario-input {
-  padding: 10px 12px;
-  border: 1px solid var(--rosa-primario);
-  border-radius: 8px;
-  font-size: 1rem;
-  color: var(--text);
-  background: var(--rosa-claro);
-  transition: 0.2s;
-}
-
-.usuario-input:disabled {
-  opacity: 0.6;
-  background: #f2f2f2;
-  border-color: #ccc;
-}
-
-.usuario-input:focus {
-  outline: none;
-  border-color: var(--rosa-hover);
-}
-
-/* ===== BOTÕES ===== */
-.usuario-buttons {
-  display: flex;
-  gap: 12px;
-  margin-top: 10px;
-}
-
-.btn-editar,
-.btn-salvar {
-  padding: 10px 16px;
-  border: none;
+  gap: 18px;
+  background: #fff;
+  padding: 18px;
   border-radius: 10px;
-  font-size: 0.95rem;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.04);
+}
+.avatar {
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  background: #ff2db7;
+  color: white;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+}
+.center h2 {
+  margin: 0;
+  font-size: 20px;
+}
+.meta {
+  color: #666;
+  font-size: 13px;
+  margin-top: 4px;
+}
+.info {
+  margin-top: 8px;
+  color: #333;
+}
+.right {
+  margin-left: auto;
+}
+.btn-edit {
+  background: transparent;
+  border: 1px solid #e91e63;
+  padding: 8px 12px;
+  border-radius: 8px;
+  color: #e91e63;
   cursor: pointer;
-  transition: 0.2s;
 }
-
-.btn-editar {
-  background: var(--rosa-primario);
+.pwd-form {
+  margin-top: 18px;
+  background: #fff;
+  padding: 16px;
+  border-radius: 10px;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.04);
+  max-width: 520px;
+}
+.pwd-form label {
+  display: block;
+  font-size: 13px;
+  margin-top: 8px;
+}
+.pwd-form input {
+  width: 100%;
+  padding: 8px 10px;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+  margin-top: 6px;
+}
+.actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+  margin-top: 12px;
+}
+.btn-cancel {
+  background: #fff;
+  border: 1px solid #ddd;
+  padding: 8px 12px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+.btn-save {
+  background: #e91e63;
   color: white;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 8px;
+  cursor: pointer;
 }
-
-.btn-editar:hover {
-  background: var(--rosa-hover);
+.message {
+  margin-top: 8px;
+  color: #b00020;
 }
-
-.btn-salvar {
-  background: #4caf50;
-  color: white;
-}
-
-.btn-salvar:hover {
-  background: #3f8c41;
+.error {
+  color: #b00020;
 }

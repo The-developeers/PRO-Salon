@@ -1,9 +1,20 @@
 import { FiUser } from "react-icons/fi";
 import { useState } from "react";
 import "../style/TheHeader.css";
+import { Link } from "react-router-dom";
+import { useAuth } from "../hooks/useAuth";
+import { useNavigate } from "react-router-dom";
 
 export default function TheHeader() {
+  const { logout } = useAuth()
+  const navigate = useNavigate()
   const [openMenu, setOpenMenu] = useState(false);
+
+  // função de logout no sidebar
+  const handleLogout = () => {
+    logout()
+    navigate('/login')
+  }
 
   return (
     <header className="header-container">
@@ -26,8 +37,8 @@ export default function TheHeader() {
 
         {openMenu && (
           <div className="dropdown-menu">
-            <button>Editar Perfil</button>
-            <button className="logout">Sair</button>
+            <Link to="/usuario" ><button>Editar Perfil</button></Link>
+            <button className="logout" onClick={handleLogout}>Sair</button>
           </div>
         )}
       </div>

@@ -1,86 +1,106 @@
-import { useState } from "react";
-import { User } from "lucide-react";
-import Sidebar from "../components/Sidebar";
-import TheHeader from "../components/TheHeader";
+// src/pages/ProfilePage.tsx
+import React, { useState } from "react";
+import { useUserProfile } from "../hooks/useUserProfile";
 import "../style/Usuario.css";
+import Layout from "../components/Layout";
 
-export default function Usuario() {
-  const [editando, setEditando] = useState(false);
+export default function ProfilePage() {
+  const { user, loading, error, saving, changePassword } = useUserProfile();
 
-  const [formData, setFormData] = useState({
-    nome: "Letícia Frutuozo",
-    email: "leticia@example.com",
-    telefone: "(11) 99999-9999",
-  });
+  const [showPwd, setShowPwd] = useState(false);
+  const [password, setPassword] = useState("");
+  const [passwordConfirm, setPasswordConfirm] = useState("");
+  const [message, setMessage] = useState<string | null>(null);
 
-  function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+  async function handleChangePassword(e: React.FormEvent) {
+    e.preventDefault();
+    setMessage(null);
+
+    if (!password || password.length < 6) {
+      setMessage("Senha deve ter ao menos 6 caracteres");
+      return;
+    }
+    if (password !== passwordConfirm) {
+      setMessage("As senhas não combinam");
+      return;
+    }
+
+    try {
+      await changePassword(password);
+      setMessage("Senha atualizada com sucesso");
+      setPassword("");
+      setPasswordConfirm("");
+      setShowPwd(false);
+    } catch (err: any) {
+      setMessage(err?.response?.data?.message || err?.message || "Erro ao alterar senha");
+    }
   }
 
-  function handleSalvar() {
-    setEditando(false);
-  }
+  if (loading) return <div className="profile-page"><p>Carregando perfil...</p></div>;
+  if (error) return <div className="profile-page"><p className="error">{error}</p></div>;
 
   return (
-    <div className="usuario-page">
-      <Sidebar />
-      <div className="usuario-conteudo">
-        <TheHeader />
+    <Layout>
+    <div className="profile-page">
+      <header className="profile-header">
+        <h1>Meu Perfil</h1>
+      </header>
 
-        <div className="usuario-container">
-          <h2 className="usuario-title">
-            <User size={26} style={{ marginRight: 8 }} />
-            Meu Perfil
-          </h2>
-
-          <div className="usuario-form">
-            <div>
-              <label className="usuario-label">Nome</label>
-              <input
-                name="nome"
-                disabled={!editando}
-                className="usuario-input"
-                value={formData.nome}
-                onChange={handleChange}
-              />
-            </div>
-
-            <div>
-              <label className="usuario-label">Email</label>
-              <input
-                name="email"
-                disabled={!editando}
-                className="usuario-input"
-                value={formData.email}
-                onChange={handleChange}
-              />
-            </div>
-
-            <div>
-              <label className="usuario-label">Telefone</label>
-              <input
-                name="telefone"
-                disabled={!editando}
-                className="usuario-input"
-                value={formData.telefone}
-                onChange={handleChange}
-              />
-            </div>
-
-            <div className="usuario-buttons">
-              {!editando ? (
-                <button className="btn-editar" onClick={() => setEditando(true)}>
-                  Editar
-                </button>
-              ) : (
-                <button className="btn-salvar" onClick={handleSalvar}>
-                  Salvar
-                </button>
-              )}
+      {!user ? (
+        <div>Nenhum usuário carregado.</div>
+      ) : (
+        <div className="profile-card">
+          <div className="left">
+            <div className="avatar">
+              {(user.nome || "U").split(" ").map(n => n[0]).slice(0,2).join("").toUpperCase()}
             </div>
           </div>
+
+          <div className="center">
+            <h2>{user.nome}</h2>
+            <div className="meta">{user.role ?? "—"}</div>
+            <div className="info">📧 {user.email}</div>
+            <div className="info">📞 {user.telefone ?? "—"}</div>
+            <div className="info">Criado: {user.createdAt ? new Date(user.createdAt).toLocaleDateString() : "—"}</div>
+          </div>
+
+          <div className="right">
+            <button className="btn-edit" onClick={() => setShowPwd(s => !s)}>
+              {showPwd ? "Cancelar" : "Alterar senha"}
+            </button>
+          </div>
         </div>
-      </div>
+      )}
+
+      {showPwd && (
+        <form className="pwd-form" onSubmit={handleChangePassword}>
+          <h3>Alterar senha</h3>
+          <label>Nova senha</label>
+          <input
+            type="password"
+            value={password}
+            onChange={e => setPassword(e.target.value)}
+            placeholder="Digite a nova senha"
+          />
+          <label>Confirmar senha</label>
+          <input
+            type="password"
+            value={passwordConfirm}
+            onChange={e => setPasswordConfirm(e.target.value)}
+            placeholder="Confirme a nova senha"
+          />
+          {message && <div className="message">{message}</div>}
+          <div className="actions">
+            <button type="button" className="btn-cancel" onClick={() => { setShowPwd(false); setMessage(null); }}>
+              Cancelar
+            </button>
+            <button type="submit" className="btn-save" disabled={saving}>
+              {saving ? "Salvando..." : "Salvar senha"}
+            </button>
+          </div>
+        </form>
+      )}
     </div>
+    </Layout>
   );
 }
