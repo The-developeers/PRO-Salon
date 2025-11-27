@@ -1,23 +1,21 @@
 /* src/style/Agenda.css */
+
 .home-main {
-  /* Propriedades do seu snippet */
-  padding: 0px;
+  padding: 24px; /* Ajustei para ter um respiro nas bordas */
   margin: 0px;
-  background: var(--background); /* Certifique-se que var(--background) está definida! */
+  background: var(--background);
   font-family: "Poppins", sans-serif;
   box-sizing: border-box;
-
-  /* Propriedade do nosso layout Flex para fazer o conteúdo crescer */
   flex-grow: 1;
-/* --- Cabeçalho da Agenda (AgendaHeader.tsx) --- */
 }
+
 /* --- Cabeçalho da Agenda --- */
 .agenda-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
   margin-bottom: 24px;
-  margin-top: 40px; /* Mantive sua margem */
+  margin-top: 40px;
 }
 
 .agenda-header h1 { margin: 0; }
@@ -38,11 +36,11 @@
   display: flex;
   gap: 16px;
   margin-bottom: 24px;
-  background-color: #FFE7DB; /* Mantive sua cor laranja claro */
+  background-color: #FFE7DB;
   padding: 16px;
   border-radius: 10px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
-  align-items: center; /* Centraliza verticalmente */
+  align-items: center;
 }
 
 /* Estilo unificado para inputs e o botão */
@@ -54,7 +52,7 @@
   border-radius: 4px;
   font-family: inherit;
   font-size: 0.9rem;
-  height: 42px; /* Força a mesma altura para todos */
+  height: 42px;
   box-sizing: border-box;
 }
 
@@ -66,13 +64,14 @@
 
 /* Estilo Específico do Botão Limpar Filtro */
 .btn-limpar-filtro {
-  background-color: transparent; /* Fundo transparente ou cor desejada */
-  border: 1px solid #c27c56; /* Uma borda mais escura que o fundo do filtro */
+  background-color: transparent;
+  border: 1px solid #c27c56;
   color: #c27c56;
   cursor: pointer;
   font-weight: 600;
-  white-space: nowrap; /* Não deixa o texto quebrar */
+  white-space: nowrap;
 }
+
 .btn-limpar-filtro:hover {
   background-color: rgba(255,255,255, 0.3);
 }
@@ -90,13 +89,13 @@
   justify-content: space-between;
   align-items: center;
 
-  background-color: #ffffff; /* Fundo Branco */
+  background-color: #ffffff;
   border-radius: 8px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
   padding: 16px 24px;
   
-  border-left: 5px solid #ccc; /* A borda colorida vem daqui */
-  position: relative; /* Importante para o layout */
+  border-left: 5px solid #ccc;
+  position: relative;
 }
 
 /* --- GRUPO DA ESQUERDA (Avatar + Infos) --- */
@@ -114,11 +113,10 @@
 }
 
 /* Container do Texto e Status */
-/* Importante: Certifique-se que no React você usou className="card-client-details" */
 .card-client-details {
   display: flex;
   flex-direction: column;
-  position: relative; /* O PAI É RELATIVO para o filho (status) flutuar */
+  position: relative;
 }
 
 .card-client-details strong {
@@ -132,19 +130,35 @@
   margin: 0;
 }
 
-/* --- O STATUS FLUTUANTE --- */
+/* --- O STATUS FLUTUANTE (Badge/Select) --- */
 .status-badge {
-  position: absolute; /* O FILHO É ABSOLUTO */
-  top: 0;             /* Alinha no topo */
-  left: 100%;         /* Joga para a direita do texto */
-  margin-left: 12px;  /* Espacinho para não grudar */
+  position: absolute;
+  top: 0;
+  left: 100%;
+  margin-left: 12px;
   
   padding: 4px 10px;
   border-radius: 12px;
   font-size: 11px;
   font-weight: bold;
-  white-space: nowrap; /* Garante que fique em uma linha só */
+  white-space: nowrap;
   text-transform: capitalize;
+}
+
+/* Select disfarçado de badge */
+.select-status {
+  border: none;
+  cursor: pointer;
+  outline: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  text-align: center;
+  text-align-last: center;
+}
+
+.select-status:hover {
+  filter: brightness(0.95);
 }
 
 /* --- GRUPO DA DIREITA (Detalhes) --- */
@@ -184,24 +198,33 @@
   cursor: pointer;
 }
 
+/* Botão Excluir (X) */
+.btn-delete {
+  color: #e53e3e;
+  font-weight: bold;
+  cursor: pointer;
+  padding: 5px;
+  border-radius: 50%;
+  transition: background 0.2s;
+}
+
+.btn-delete:hover {
+  background-color: #ffe5e5;
+}
+
 /* --- CORES DOS STATUS --- */
-/* Realizada (Verde) */
 .appointment-card.status-realizada { border-left-color: #31a06a; }
 .status-badge.status-realizada { background-color: #e6f7f0; color: #31a06a; }
 
-/* Agendada (Azul) */
 .appointment-card.status-agendada { border-left-color: #2b7def; }
 .status-badge.status-agendada { background-color: #e6f0fa; color: #2b7def; }
 
-/* Vencida (Vermelho) */
 .appointment-card.status-vencida { border-left-color: #e53e3e; }
 .status-badge.status-vencida { background-color: #fbebee; color: #e53e3e; }
 
-/* Aguardando (Amarelo) */
 .appointment-card.status-aguardando { border-left-color: #f59e0b; }
 .status-badge.status-aguardando { background-color: #fff8e1; color: #f59e0b; }
 
-/* src/style/Agenda.css (Adicione ao final) */
 
 /* --- MODAL --- */
 .modal-overlay {
@@ -210,11 +233,11 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, 0.5); /* Fundo escuro transparente */
+  background-color: rgba(0, 0, 0, 0.5);
   display: flex;
   justify-content: center;
   align-items: center;
-  z-index: 1000; /* Fica por cima de tudo */
+  z-index: 1000;
 }
 
 .modal-content {
@@ -224,6 +247,9 @@
   width: 400px;
   max-width: 90%;
   box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+  /* Adicionado para scroll se a tela for muito pequena */
+  max-height: 90vh;
+  overflow-y: auto;
 }
 
 .modal-header {
@@ -251,7 +277,17 @@
   margin-bottom: 15px;
   border: 1px solid #ddd;
   border-radius: 4px;
-  box-sizing: border-box; /* Garante que o padding não estoure a largura */
+  box-sizing: border-box;
+}
+
+.modal-form textarea {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 15px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  box-sizing: border-box;
+  font-family: inherit;
 }
 
 .form-row {
@@ -282,4 +318,77 @@
   border-radius: 4px;
   cursor: pointer;
   font-weight: bold;
+}
+
+
+/* ==========================================================================
+   --- RESPONSIVIDADE (MOBILE & TABLET) ---
+   Adicione isso no final do arquivo para funcionar em telas pequenas
+   ========================================================================== */
+
+@media (max-width: 768px) {
+  
+  .home-main {
+    padding: 16px;
+  }
+
+  /* 1. Cabeçalho empilhado */
+  .agenda-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+    margin-top: 20px;
+  }
+
+  .btn-novo-agendamento {
+    width: 100%; /* Botão ocupa a largura toda */
+  }
+
+  /* 2. Filtros empilhados */
+  .agenda-filters {
+    flex-direction: column;
+    align-items: stretch; /* Estica os inputs */
+    gap: 12px;
+  }
+
+  .btn-limpar-filtro {
+    text-align: center;
+  }
+
+  /* 3. Cards empilhados */
+  .appointment-card {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+  }
+
+  /* Info do cliente ocupa largura total */
+  .card-info {
+    width: 100%;
+    /* No mobile, o status precisa descer para não quebrar o layout */
+    flex-wrap: wrap; 
+  }
+
+  /* Ajuste do badge de status no mobile para não voar para fora */
+  .status-badge {
+    position: static; /* Remove o position absolute */
+    display: inline-block;
+    margin-left: 0;
+    margin-top: 8px;
+  }
+
+  /* Detalhes (Data/Preço) alinhados à esquerda ou espalhados */
+  .card-details {
+    width: 100%;
+    justify-content: space-between;
+    gap: 10px;
+    border-top: 1px solid #eee; /* Uma linha para separar */
+    padding-top: 12px;
+  }
+
+  .card-datetime {
+    text-align: left; /* Data alinhada a esquerda no mobile */
+    flex-direction: row;
+    gap: 10px;
+  }
 }

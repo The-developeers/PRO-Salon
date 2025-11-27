@@ -1,72 +1,91 @@
 // src/components/AppointmentCard.tsx
 import '../style/Agenda.css';
+import type { Agendamento } from '../api/agenda';
 
 type AppointmentProps = {
-  appointmentData: {
-    clientName: string;
-    service: string;
-    specialist: string;
-    status: string;
-    date: string;
-    time: string;
-    price: number;
-    avatarUrl?: string; // Agora é opcional com ?
-  }
+  appointmentData: Agendamento;
+  onDelete: () => void; // Recebe a função de deletar
+  onStatusChange: (status: string) => void; // Recebe a função de mudar status
 }
 
-export default function AppointmentCard({ appointmentData }: AppointmentProps) {
+export default function AppointmentCard({ appointmentData, onDelete, onStatusChange }: AppointmentProps) {
   
   const getStatusClass = (status: string) => {
     switch (status?.toLowerCase()) {
-      case 'realizada': return 'status-realizada';
-      case 'agendada': return 'status-agendada';
-      case 'vencida': return 'status-vencida';
+      case 'concluido': return 'status-realizada';
+      case 'marcado': return 'status-agendada';
+      case 'confirmado': return 'status-agendada';
+      case 'cancelado': return 'status-vencida';
       default: return 'status-aguardando';
     }
   }
 
+  const dataObj = new Date(appointmentData.dataHora);
+  const dataFormatada = dataObj.toLocaleDateString('pt-BR');
+  const horaFormatada = dataObj.toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' });
+
+  const nomeCliente = appointmentData.cliente?.nome || 'Cliente não identificado';
+  const nomeServico = appointmentData.servico?.nome || 'Serviço';
+  const nomeFuncionario = appointmentData.funcionario?.nome || 'Profissional';
+  const cargoFuncionario = appointmentData.funcionario?.cargo || '';
+  const preco = appointmentData.servico?.preco || 0;
+
   return (
     <div className={`appointment-card ${getStatusClass(appointmentData.status)}`}> 
       
-      {/* LADO ESQUERDO: Avatar + Infos */}
       <div className="card-info">
         <img 
-          // Se não tiver avatar, usa um padrão (ajuste o caminho se precisar)
-          src={appointmentData.avatarUrl || '/img/Logo.png'} 
-          alt={appointmentData.clientName} 
+          src={appointmentData.cliente?.avatar || '/img/iconman.png'} 
+          alt={nomeCliente} 
           className="card-avatar"
         />
 
-        {/* MUDANÇA IMPORTANTE PARA O CSS NOVO: */}
         <div className="card-client-details">
-          <strong>{appointmentData.clientName}</strong>
-          <p>{appointmentData.service} - {appointmentData.specialist}</p>
+          <strong>{nomeCliente}</strong>
+          <p>{nomeServico} - {nomeFuncionario} <small>({cargoFuncionario})</small></p>
           
-          {/* O Status agora fica aqui dentro para o CSS posicionar ele no topo */}
-          <span className={`status-badge ${getStatusClass(appointmentData.status)}`}>
-            {appointmentData.status}
-          </span>
+          {/* MUDANÇA: O Status agora é um SELECT disfarçado de badge */}
+          <select 
+            className={`status-badge ${getStatusClass(appointmentData.status)} select-status`}
+            value={appointmentData.status}
+            onChange={(e) => onStatusChange(e.target.value)}
+          >
+            <option value="marcado">Marcado</option>
+            <option value="confirmado">Confirmado</option>
+            <option value="concluido">Concluído</option>
+            <option value="cancelado">Cancelado</option>
+          </select>
+          
+          {appointmentData.observacoes && (
+             <small style={{color: '#888', display:'block', marginTop: 4}}>
+               Obs: {appointmentData.observacoes}
+             </small>
+          )}
         </div>
       </div>
 
-      {/* LADO DIREITO: Data, Preço e Botões */}
       <div className="card-details">
         <div className="card-datetime">
-          <span className={appointmentData.status === 'Vencida' ? 'text-danger' : ''}>
-            {appointmentData.date}
-          </span>
-          <span className={appointmentData.status === 'Vencida' ? 'text-danger' : ''}>
-            {appointmentData.time}
-          </span>
+          <span>{dataFormatada}</span>
+          <span>{horaFormatada}</span>
         </div>
         
         <strong className="card-price">
-          R$ {Number(appointmentData.price).toFixed(2)}
+          R$ {Number(preco).toFixed(2)}
         </strong>
 
         <div className="card-actions">
           <span>Ver detalhes</span>
-          <span>X</span>
+          
+          {/* MUDANÇA: O X agora é clicável */}
+          <span 
+            className="btn-delete" 
+            onClick={onDelete}
+            title="Excluir Agendamento"
+          >
+            X
+          </span>
+
         </div>
       </div>
     </div>

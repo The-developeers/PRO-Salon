@@ -1,57 +1,98 @@
-// src/components/AgendamentoModal.tsx
-import React, { useState } from 'react';
-import { createAgendamento } from '../api/agenda';
+// frontend/src/components/AgendamentoModal.tsx
+import React, { useState, useEffect } from 'react';
+import { createAgendamento, getClientes, getFuncionarios, getServicos } from '../api/agenda';
 import '../style/Agenda.css';
 
 type ModalProps = {
   isOpen: boolean;
   onClose: () => void;
-  onSuccess: () => void; // Nova prop para avisar que salvou com sucesso
+  onSuccess: () => void;
 }
 
 export default function AgendamentoModal({ isOpen, onClose, onSuccess }: ModalProps) {
-  // 1. Estados para capturar os inputs
-  const [clientName, setClientName] = useState('');
-  const [service, setService] = useState('Corte');
-  const [date, setDate] = useState('');
-  const [time, setTime] = useState('');
+  // Estados do Form
+  const [clienteId, setClienteId] = useState('');
+  const [funcionarioId, setFuncionarioId] = useState('');
+  const [servicoId, setServicoId] = useState('');
+  const [data, setData] = useState('');
+  const [hora, setHora] = useState('');
+  const [observacoes, setObservacoes] = useState('');
+  const [status, setStatus] = useState('marcado');
+  
+  // Estado para duração (importante para o calculo de conflito no backend)
+  const [duracaoMinutos, setDuracaoMinutos] = useState(60); 
+
   const [loading, setLoading] = useState(false);
 
-  if (!isOpen) return null;
+  // Listas para os Selects
+  const [listaClientes, setListaClientes] = useState<any[]>([]);
+  const [listaFuncionarios, setListaFuncionarios] = useState<any[]>([]);
+  const [listaServicos, setListaServicos] = useState<any[]>([]);
 
-  // 2. Função que roda ao clicar em SALVAR
+  useEffect(() => {
+    if (isOpen) {
+      async function carregarListas() {
+        try {
+          // Promise.all para carregar tudo junto
+          const [cli, func, serv] = await Promise.all([
+            getClientes(),
+            getFuncionarios(),
+            getServicos()
+          ]);
+          setListaClientes(cli);
+          setListaFuncionarios(func);
+          setListaServicos(serv);
+        } catch (error) {
+          console.error("Erro ao carregar listas", error);
+        }
+      }
+      carregarListas();
+    }
+  }, [isOpen]);
+
+  // Quando escolhe um serviço, atualiza a duração automaticamente
+  const handleServiceChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    const idSelecionado = e.target.value;
+    setServicoId(idSelecionado);
+    
+    const servicoEncontrado = listaServicos.find(s => s._id === idSelecionado);
+    if (servicoEncontrado && servicoEncontrado.duracaoMinutos) {
+      setDuracaoMinutos(servicoEncontrado.duracaoMinutos);
+    }
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault(); // Impede a página de recarregar
+    e.preventDefault();
     setLoading(true);
 
     try {
-      // Monta o objeto para mandar pro backend
+      // Combina data e hora para ISO String
+      const dataHoraCombinada = new Date(`${data}T${hora}:00`).toISOString();
+
       await createAgendamento({
-        clientName,
-        service,
-        specialist: 'Profissional Padrão', // Você pode criar um input pra isso depois
-        date,
-        time,
-        price: 100.00, // Preço fixo ou criar input depois
-        status: 'Agendada'
+        cliente: clienteId,
+        funcionario: funcionarioId,
+        servico: servicoId,
+        dataHora: dataHoraCombinada,
+        duracaoMinutos: Number(duracaoMinutos),
+        observacoes,
+        status
       });
 
-      // Se deu certo:
-      alert('Agendamento salvo com sucesso!');
-      onSuccess(); // Avisa a página pai para atualizar
-      onClose();   // Fecha o modal
-      
-      // Limpa o form
-      setClientName('');
-      setDate('');
-      setTime('');
-
-    } catch (error) {
-      alert('Erro ao salvar agendamento.');
+      alert('Agendamento criado com sucesso!');
+      onSuccess();
+      onClose();
+      // Resetar form simples
+      setObservacoes('');
+    } catch (error: any) {
+      // Aqui aparecerá o erro de "Conflito de horário" vindo do backend
+      alert(error.message || 'Erro ao salvar.');
     } finally {
       setLoading(false);
     }
   };
+
+  if (!isOpen) return null;
 
   return (
     <div className="modal-overlay">
@@ -61,46 +102,68 @@ export default function AgendamentoModal({ isOpen, onClose, onSuccess }: ModalPr
           <span className="close-btn" onClick={onClose}>&times;</span>
         </div>
         
-        {/* O onSubmit chama a nossa função handleSubmit */}
         <form className="modal-form" onSubmit={handleSubmit}>
           
-          <label>Nome da Cliente</label>
-          <input 
-            type="text" 
-            placeholder="Ex: Ana Silva" 
-            value={clientName}
-            onChange={(e) => setClientName(e.target.value)}
-            required
-          />
+          <label>Cliente</label>
+          <select value={clienteId} onChange={e => setClienteId(e.target.value)} required>
+            <option value="">Selecione...</option>
+            {listaClientes.map(c => (
+              <option key={c._id} value={c._id}>{c.nome}</option> // Use .nome
+            ))}
+          </select>
 
           <label>Serviço</label>
-          <select value={service} onChange={(e) => setService(e.target.value)}>
-            <option value="Corte">Corte</option>
-            <option value="Coloração">Coloração</option>
-            <option value="Manicure">Manicure</option>
-            <option value="Lavagem">Lavagem</option>
+          <select value={servicoId} onChange={handleServiceChange} required>
+            <option value="">Selecione...</option>
+            {listaServicos.map(s => (
+              <option key={s._id} value={s._id}>
+                {s.nome} ({s.duracaoMinutos} min) - R$ {s.preco}
+              </option>
+            ))}
+          </select>
+
+          <label>Funcionário</label>
+          <select value={funcionarioId} onChange={e => setFuncionarioId(e.target.value)} required>
+            <option value="">Selecione...</option>
+            {listaFuncionarios.map(f => (
+              <option key={f._id} value={f._id}>{f.nome}</option>
+            ))}
           </select>
 
           <div className="form-row">
             <div>
               <label>Data</label>
-              <input 
-                type="date" 
-                value={date}
-                onChange={(e) => setDate(e.target.value)}
-                required
-              />
+              <input type="date" value={data} onChange={e => setData(e.target.value)} required />
             </div>
             <div>
               <label>Horário</label>
-              <input 
-                type="time" 
-                value={time}
-                onChange={(e) => setTime(e.target.value)}
-                required
-              />
+              <input type="time" value={hora} onChange={e => setHora(e.target.value)} required />
             </div>
           </div>
+          
+          <label>Duração (minutos)</label>
+          <input 
+            type="number" 
+            value={duracaoMinutos} 
+            onChange={e => setDuracaoMinutos(Number(e.target.value))}
+            style={{marginBottom: 15}}
+          />
+
+          <label>Status</label>
+          <select value={status} onChange={e => setStatus(e.target.value)}>
+            <option value="marcado">Marcado</option>
+            <option value="confirmado">Confirmado</option>
+            <option value="concluido">Concluído</option>
+            <option value="cancelado">Cancelado</option>
+          </select>
+
+          <label>Observações</label>
+          <textarea 
+            rows={3}
+            value={observacoes} 
+            onChange={e => setObservacoes(e.target.value)}
+            style={{width: '100%', padding: '8px', borderColor: '#ddd'}}
+          />
 
           <div className="modal-actions">
             <button type="button" onClick={onClose} className="btn-cancel">Cancelar</button>

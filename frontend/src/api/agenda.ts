@@ -1,78 +1,131 @@
-// src/api/agenda.ts
+// frontend/src/api/agenda.ts
+const API_URL = 'http://localhost:5000/api/v1';
 
-// Baseado no seu auth.ts
-const API_URL = 'http://localhost:5000/api/v1'; 
+const getHeaders = () => {
+  const token = localStorage.getItem('token');
+  return {
+    'Content-Type': 'application/json',
+    'Authorization': token ? `Bearer ${token}` : ''
+  };
+};
 
-// O tipo de dados que esperamos do backend
+// --- TIPAGEM EXATA DO SEU CONTROLLER ---
 export interface Agendamento {
-  id: number;
-  clientName: string;
-  service: string;
-  specialist: string;
-  status: string;
-  date: string;
-  time: string;
-  price: number;
-  avatarUrl?: string; // Opcional
+  _id: string;
+  dataHora: string;
+  duracaoMinutos: number;
+  status: 'marcado' | 'confirmado' | 'concluido' | 'cancelado';
+  observacoes: string; // Controller usa plural
+  
+  // Baseado no basePopulate do controller
+  cliente: { 
+    _id: string; 
+    nome: string;    // <--- Mudou de name para nome
+    email: string;
+    telefone?: string;
+    // Se o backend nao retornar avatar, usaremos um padrao no front
+    avatar?: string; 
+  }; 
+  funcionario: { 
+    _id: string; 
+    nome: string;    // <--- Mudou de name para nome
+    cargo: string;
+  };
+  servico: { 
+    _id: string; 
+    nome: string;    // <--- Mudou de name para nome
+    preco: number;
+    duracaoMinutos: number; 
+  };
 }
+
+// O que enviamos para criar (req.body do controller)
+export interface NovoAgendamentoDTO {
+  cliente: string;      // ID
+  funcionario: string;  // ID
+  servico: string;      // ID
+  dataHora: string;     // ISO Date
+  duracaoMinutos: number;
+  observacoes: string;
+  status: string;
+}
+
+// --- FUNÇÕES ---
+
+// Ajuste os endpoints abaixo conforme suas rotas reais de users/employees/services
+export const getClientes = async () => {
+  const res = await fetch(`${API_URL}/users`, { headers: getHeaders() });
+  const json = await res.json();
+  return json.data || []; 
+};
+
+export const getFuncionarios = async () => {
+  const res = await fetch(`${API_URL}/employees`, { headers: getHeaders() });
+  const json = await res.json();
+  return json.data || [];
+};
+
+export const getServicos = async () => {
+  const res = await fetch(`${API_URL}/services`, { headers: getHeaders() });
+  const json = await res.json();
+  return json.data || [];
+};
 
 export const getAgendamentos = async (): Promise<Agendamento[]> => {
   try {
-    // Ajuste '/agendamentos' se sua rota no backend tiver outro nome
     const response = await fetch(`${API_URL}/agendamentos`, {
       method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-        // Se precisar de token (login), descomente a linha abaixo:
-        // 'Authorization': `Bearer ${localStorage.getItem('token')}`
-      },
+      headers: getHeaders(),
     });
-
-    if (!response.ok) {
-      throw new Error('Erro ao buscar agendamentos');
-    }
-
+    if (!response.ok) throw new Error('Erro ao buscar');
     const json = await response.json();
-    
-    // ATENÇÃO: Verifique se seu backend retorna { data: [...] } ou direto [...]
-    // Se for igual ao seu auth.ts, deve ser json.data
+    // O seu controller retorna ok(res, items), verifique se vem direto ou dentro de data
+    // Geralmente utils/apiResponse.js retorna { status: true, data: [...] } ou algo assim
     return json.data || json; 
-    
   } catch (error) {
-    console.error("Erro na API de agenda:", error);
+    console.error("Erro API:", error);
     return [];
   }
 };
 
-export interface NovoAgendamento {
-  clientName: string;
-  service: string;
-  specialist: string; // Se você tiver esse campo no form
-  date: string;
-  time: string;
-  price: number;
-  status: string;
-}
+export const createAgendamento = async (dados: NovoAgendamentoDTO) => {
+  const response = await fetch(`${API_URL}/agendamentos`, {
+    method: 'POST',
+    headers: getHeaders(),
+    body: JSON.stringify(dados)
+  });
+  
+  const json = await response.json();
 
-// 2. A função que ENVIA os dados
-export const createAgendamento = async (dados: NovoAgendamento) => {
-  try {
-    const response = await fetch(`${API_URL}/agendamentos`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        // 'Authorization': `Bearer ...` (se precisar)
-      },
-      body: JSON.stringify(dados)
-    });
-
-    if (!response.ok) {
-      throw new Error('Erro ao criar agendamento');
-    }
-
-    return await response.json();
-  } catch (error) {
-    console.error("Erro ao salvar:", error);
-    throw error;
+  if (!response.ok) {
+    // Aqui pegamos a mensagem de erro do seu badRequest (ex: Conflito de horário)
+    throw new Error(json.message || 'Erro ao criar agendamento');
   }
+  return json;
+};
+export const updateStatusAgendamento = async (id: string, novoStatus: string) => {
+  const response = await fetch(`${API_URL}/agendamentos/${id}`, {
+    method: 'PUT',
+    headers: getHeaders(),
+    body: JSON.stringify({ status: novoStatus }) // Envia só o status
+  });
+
+  if (!response.ok) {
+    const json = await response.json();
+    throw new Error(json.message || 'Erro ao atualizar status');
+  }
+  return await response.json();
+};
+
+// EXCLUIR AGENDAMENTO (DELETE)
+export const deleteAgendamento = async (id: string) => {
+  const response = await fetch(`${API_URL}/agendamentos/${id}`, {
+    method: 'DELETE',
+    headers: getHeaders(),
+  });
+
+  if (!response.ok) {
+    throw new Error('Erro ao excluir agendamento');
+  }
+  return true; // Sucesso
 };
