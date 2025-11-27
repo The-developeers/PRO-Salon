@@ -169,3 +169,127 @@
   color: #b00020;
   padding: 8px 0;
 }
+/* ==========================================================================
+   --- RESPONSIVIDADE (MOBILE & TABLET) ---
+   Adicione isso no final do arquivo para funcionar em telas pequenas
+   ========================================================================== */
+
+@media (max-width: 768px) {
+  
+  .employees-page {
+    padding: 16px; /* Reduz padding lateral para ganhar espaço */
+  }
+
+  /* 1. Cabeçalho Empilhado */
+  .emp-header {
+    flex-direction: column; /* Título em cima, ações embaixo */
+    align-items: flex-start; /* Alinha à esquerda */
+    gap: 16px;
+  }
+
+  /* 2. Ações ocupam largura total */
+  .header-actions {
+    width: 100%;
+    display: flex;
+    flex-direction: column; /* Input em cima, botões embaixo */
+    gap: 10px;
+  }
+
+  .search-input {
+    width: 100%; /* Input preenche a tela */
+    padding: 12px; /* Maior área de toque */
+    font-size: 16px; /* Evita zoom automático no iPhone */
+  }
+
+  /* Container para os botões ficarem lado a lado abaixo do search */
+  .header-actions {
+    display: grid;
+    grid-template-columns: 1fr auto; /* Search ocupa espaço, botão search auto */
+    gap: 8px;
+  }
+  
+  /* Ajuste específico para quando quiser que o "Novo Funcionário" fique separado ou junto
+     Neste caso, vou fazer um layout onde o Search e BtnSearch ficam numa linha
+     e o BtnNew fica numa linha abaixo (mais fácil de clicar) 
+  */
+  
+  /* Sobrescrevendo para um layout mobile ideal: */
+  .header-actions {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+  }
+
+  /* Grupo de busca */
+  .search-group { /* Se você tiver uma div envolvendo input e btn, se não, ajusta aqui */
+     display: flex;
+     width: 100%;
+     gap: 8px;
+  }
+
+  /* Se não tiver div extra no HTML, vamos fazer o seguinte via CSS Grid no pai: */
+  .emp-header {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .header-actions {
+    display: flex;
+    flex-direction: column; 
+    width: 100%;
+  }
+  
+  /* Vamos supor que a estrutura HTML é <input> <btnSearch> <btnNew> */
+  /* Vamos fazer o input ocupar 100% e os botões ficarem embaixo */
+  
+  .search-input {
+    order: 1;
+    width: 100%;
+    margin-bottom: 8px;
+  }
+
+  .btn-search {
+    order: 2;
+    width: 100%; /* Botão grande para toque */
+    justify-content: center;
+    display: flex;
+  }
+
+  .btn-new {
+    order: 3;
+    width: 100%; /* Botão grande para destaque */
+    margin-top: 8px;
+    justify-content: center;
+    display: flex;
+    padding: 12px;
+  }
+
+  /* 3. Grid de 1 Coluna */
+  .grid {
+    grid-template-columns: 1fr; /* Força uma coluna única */
+  }
+
+  /* 4. Ajustes no Card */
+  .emp-card {
+    padding: 16px;
+  }
+
+  .avatar {
+    width: 48px;
+    height: 48px;
+    font-size: 0.9rem;
+  }
+
+  /* 5. Modal Responsivo */
+  .modal {
+    width: 100%;
+    margin: 0 10px;
+    padding: 16px;
+  }
+  
+  .modal-actions button {
+    padding: 12px; /* Botões maiores no modal para facilitar o toque */
+    flex-grow: 1; /* Botões ocupam largura igual */
+    text-align: center;
+  }
+}

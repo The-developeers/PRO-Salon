@@ -201,3 +201,108 @@
   gap: 8px;
   margin-top: 12px;
 }
+/* ==========================================================================
+   --- RESPONSIVIDADE (MOBILE & TABLET) ---
+   Adicione isso no FINAL do seu arquivo CSS de Clientes
+   ========================================================================== */
+
+@media (max-width: 768px) {
+  
+  /* 1. Ajuste do Container Principal */
+  .clientes-page {
+    padding: 16px; /* Reduz padding para ganhar espaço */
+  }
+
+  /* 2. Cabeçalho (Título e Botão) */
+  .clientes-header {
+    flex-direction: column; /* Um embaixo do outro */
+    align-items: flex-start;
+    gap: 16px;
+  }
+
+  .actions, .actions .btn {
+    width: 100%; /* Botão ocupa a largura toda (fácil de clicar) */
+    text-align: center;
+  }
+
+  /* 3. Busca */
+  .clientes-search {
+    flex-direction: column;
+    align-items: stretch; /* Estica o input */
+    gap: 10px;
+  }
+
+  .clientes-search .total {
+    text-align: right;
+    font-size: 12px;
+  }
+
+  /* 4. TABELA VIRA CARDS (A Mágica acontece aqui) */
+  
+  /* Esconde o cabeçalho da tabela (Nome, Email, etc) pois não faz sentido em cards */
+  .table-head {
+    display: none;
+  }
+
+  .clientes-table {
+    background: transparent; /* Remove fundo branco do container geral */
+    padding: 0;
+    box-shadow: none;
+  }
+
+  /* Cada linha vira um Cartão */
+  .row {
+    display: flex; /* Desliga o Grid */
+    flex-direction: column; /* Empilha as colunas */
+    background: white;
+    margin-bottom: 16px;
+    border-radius: 12px;
+    padding: 16px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+    border: 1px solid #f0f0f0;
+    gap: 12px; /* Espaço entre as informações dentro do card */
+  }
+
+  /* Ajustes específicos para as colunas dentro do card */
+  .col.cliente {
+    border-bottom: 1px solid #f7f7f7;
+    padding-bottom: 12px;
+    margin-bottom: 4px;
+  }
+
+  /* Para dar contexto, podemos adicionar labels via CSS se necessário, 
+     ou apenas estilizar o texto */
+  .col {
+    font-size: 14px;
+    color: #555;
+    display: flex;
+    justify-content: space-between; /* Se tiver label e valor */
+    align-items: center;
+  }
+
+  /* Ações (Botões de editar/excluir) */
+  .col:last-child {
+    justify-content: flex-end; /* Joga os ícones para a direita */
+    border-top: 1px solid #f7f7f7;
+    padding-top: 12px;
+    margin-top: 4px;
+  }
+
+  .acoes {
+    width: 100%;
+    justify-content: flex-end;
+  }
+
+
+  /* Ícones maiores para toque */
+  .icon {
+    padding: 10px; 
+    background-color: #f9f9f9; /* Fundo leve para indicar botão */
+  }
+
+  /* 5. MODAL RESPONSIVO */
+  .modal {
+    width: 90%; /* Ocupa 90% da tela em vez de 520px fixo */
+    max-height: 90vh; /* Se for muito alto, permite scroll */
+  }
+}

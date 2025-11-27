@@ -129,3 +129,13 @@ export const deleteAgendamento = async (id: string) => {
   }
   return true; // Sucesso
 };
+export const getDashboardData = async () => {
+  const response = await fetch(`${API_URL}/dashboard`, {
+    method: 'GET',
+    headers: getHeaders(),
+  });
+  
+  if (!response.ok) throw new Error('Erro ao carregar dashboard');
+  const json = await response.json();
+  return json.data || json;
+};

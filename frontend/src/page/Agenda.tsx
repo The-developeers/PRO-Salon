@@ -25,7 +25,7 @@ export default function Agenda() {
       <div className="main-content">
         <TheHeader />
 
-        <main className="home-main">
+        <main className="home-main2">
           <AgendaHeader onNovoAgendamento={() => setIsModalOpen(true)} />
           <AgendaFilters />
           

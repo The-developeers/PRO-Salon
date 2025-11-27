@@ -1,7 +1,45 @@
+// frontend/src/components/Dashboard.tsx
+import { useEffect, useState } from "react";
 import { Calendar as CalendarIcon, Users, User, DollarSign } from "lucide-react";
+import { getDashboardData } from "../api/agenda"; // Ajuste o caminho do import
 import "../style/Dashboard.css";
 
 export default function Dashboard() {
+  const [stats, setStats] = useState({
+    clientes: 0,
+    funcionarios: 0,
+    agendamentosHojeCount: 0,
+    receitaMensal: 0,
+    listaHoje: [] as any[] // Lista dos agendamentos
+  });
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    async function loadData() {
+      try {
+        const data = await getDashboardData();
+        setStats(data);
+      } catch (error) {
+        console.error("Erro dashboard:", error);
+      } finally {
+        setLoading(false);
+      }
+    }
+    loadData();
+  }, []);
+
+  // Helpers de formatação
+  const formatMoney = (val: number) => 
+    new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(val);
+
+  const formatHora = (dataISO: string) => {
+    const d = new Date(dataISO);
+    return d.toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' });
+  };
+
+  // --- LÓGICA DA LINHA DO TEMPO (AGENDA DO DIA) ---
+  // Gera horários das 08:00 as 18:00
+  const horariosTimeline = Array.from({ length: 11 }, (_, i) => 8 + i); // [8, 9, 10... 18]
 
   return (
     <div className="dashboard">
@@ -12,8 +50,8 @@ export default function Dashboard() {
             <span>Agendamentos Hoje</span>
             <CalendarIcon size={20} className="icon" />
           </div>
-          <span className="card-number">12</span>
-          <span className="percent green">+8%</span>
+          <span className="card-number">{loading ? "..." : stats.agendamentosHojeCount}</span>
+          <span className="percent green">Dia atual</span>
         </div>
 
         <div className="card">
@@ -21,8 +59,8 @@ export default function Dashboard() {
             <span>Clientes Cadastrados</span>
             <User size={20} className="icon" />
           </div>
-          <span className="card-number">248</span>
-          <span className="percent green">+12%</span>
+          <span className="card-number">{loading ? "..." : stats.clientes}</span>
+          <span className="percent green">Total</span>
         </div>
 
         <div className="card">
@@ -30,8 +68,8 @@ export default function Dashboard() {
             <span>Funcionárias Ativas</span>
             <Users size={20} className="icon" />
           </div>
-          <span className="card-number">8</span>
-          <span className="percent green">+2</span>
+          <span className="card-number">{loading ? "..." : stats.funcionarios}</span>
+          <span className="percent green">Equipe</span>
         </div>
 
         <div className="card">
@@ -39,68 +77,76 @@ export default function Dashboard() {
             <span>Receita do Mês</span>
             <DollarSign size={20} className="icon" />
           </div>
-          <span className="card-number">R$ 15.420</span>
-          <span className="percent green">+15%</span>
+          <span className="card-number">
+            {loading ? "..." : formatMoney(stats.receitaMensal)}
+          </span>
+          <span className="percent green">Estimado</span>
         </div>
       </div>
 
       {/* Conteúdo principal */}
       <div className="main-grid">
-        {/* Agendamentos do dia */}
+        
+        {/* LISTA: Agendamentos de Hoje */}
         <div className="agendamentos">
           <div className="section-header">
             <h2>Agendamentos de Hoje</h2>
-            <button className="link">Ver todos</button>
+            <button className="link">Atualizar</button>
           </div>
 
           <div className="ag-list">
-            {[
-              { nome: "Maria Silva", servico: "Corte + Escova", hora: "09:00", pro: "Ana Costa", status: "confirmado" },
-              { nome: "Carla Santos", servico: "Manicure", hora: "10:30", pro: "Beatriz Lima", status: "em-andamento" },
-              { nome: "Julia Oliveira", servico: "Coloração", hora: "14:00", pro: "Camila Rocha", status: "agendado" },
-              { nome: "Fernanda Costa", servico: "Hidratação", hora: "15:30", pro: "Ana Costa", status: "agendado" },
-            ].map((item, idx) => (
-              <div key={idx} className="ag-item">
-                <div>
-                  <p className="ag-name">{item.nome}</p>
-                  <p className="ag-servico">{item.servico}</p>
+            {stats.listaHoje.length === 0 ? (
+              <p style={{padding: 20, color: '#888'}}>Nenhum agendamento para hoje.</p>
+            ) : (
+              stats.listaHoje.map((item: any, idx) => (
+                <div key={idx} className="ag-item">
+                  <div>
+                    <p className="ag-name">{item.cliente?.nome || 'Cliente'}</p>
+                    <p className="ag-servico">{item.servico?.nome || 'Serviço'}</p>
+                  </div>
+                  <div className="ag-info">
+                    <p className="ag-hora">{formatHora(item.dataHora)}</p>
+                    <p className="ag-pro">{item.funcionario?.nome || 'Pro'}</p>
+                  </div>
+                  {/* Tratamento de cor do status */}
+                  <span className={`status ${item.status?.toLowerCase() || 'marcado'}`}>
+                    {item.status}
+                  </span>
                 </div>
-                <div className="ag-info">
-                  <p className="ag-hora">{item.hora}</p>
-                  <p className="ag-pro">{item.pro}</p>
-                </div>
-                <span className={`status ${item.status}`}>{item.status.replace("-", " ")}</span>
-              </div>
-            ))}
+              ))
+            )}
           </div>
         </div>
 
-        {/* Agenda do Dia */}
+        {/* TIMELINE: Agenda do Dia */}
         <div className="agenda-dia">
           <h2 className="section-title">Agenda do Dia</h2>
 
           <div className="agenda-list">
-            {[
-              { hora: "08:00", nome: null, servico: null },
-              { hora: "09:00", nome: "Maria Silva", servico: "Corte + Escova" },
-              { hora: "10:00", nome: null, servico: null },
-              { hora: "10:30", nome: "Carla Santos", servico: "Manicure" },
-              { hora: "11:00", nome: null, servico: null },
-              { hora: "11:30", nome: null, servico: null },
-            ].map((a, idx) => (
-              <div key={idx} className={`agenda-item ${a.nome ? "ocupado" : "livre"}`}>
-                <p className="hora">{a.hora}</p>
+            {horariosTimeline.map((hora) => {
+              // Verifica se tem agendamento começando nessa hora (Ex: 14:00)
+              const agendamentoNestaHora = stats.listaHoje.find((ag: any) => {
+                const h = new Date(ag.dataHora).getHours();
+                return h === hora;
+              });
 
-                {a.nome ? (
-                  <div>
-                    <p className="ag-nome">{a.nome}</p>
-                    <p className="ag-servico">{a.servico}</p>
-                  </div>
-                ) : (
-                  <p className="livre-text">Disponível</p>
-                )}
-              </div>
-            ))}
+              const horaFormatada = `${hora.toString().padStart(2, '0')}:00`;
+
+              return (
+                <div key={hora} className={`agenda-item ${agendamentoNestaHora ? "ocupado" : "livre"}`}>
+                  <p className="hora">{horaFormatada}</p>
+
+                  {agendamentoNestaHora ? (
+                    <div>
+                      <p className="ag-nome">{agendamentoNestaHora.cliente?.nome}</p>
+                      <p className="ag-servico">{agendamentoNestaHora.servico?.nome}</p>
+                    </div>
+                  ) : (
+                    <p className="livre-text">Disponível</p>
+                  )}
+                </div>
+              );
+            })}
           </div>
         </div>
       </div>
